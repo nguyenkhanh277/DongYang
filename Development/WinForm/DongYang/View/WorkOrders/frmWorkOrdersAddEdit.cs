@@ -9,11 +9,12 @@ using DongYang.Core.Domain;
 using DongYang.Core;
 using DongYang.Core.Helper;
 
-namespace DongYang.View.Products
+namespace DongYang.View.WorkOrders
 {
-    public partial class frmProductsAddEdit : XtraForm
+    public partial class frmWorkOrdersAddEdit : XtraForm
     {
         ProjectDataContext _projectDataContext;
+        WorkOrderRepository _workOrderRepository;
         ProductRepository _productRepository;
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
@@ -34,30 +35,25 @@ namespace DongYang.View.Products
         }
 
         string _id = "";
-        bool _quickAdd = false;
-
-        public frmProductsAddEdit()
+        bool _isLoadedCombobox = false;
+        public frmWorkOrdersAddEdit()
         {
             InitializeComponent();
         }
 
-        public frmProductsAddEdit(bool quickAdd)
-        {
-            InitializeComponent();
-            _quickAdd = quickAdd;
-        }
-
-        public frmProductsAddEdit(string id)
+        public frmWorkOrdersAddEdit(string id)
         {
             InitializeComponent();
             _id = id;
         }
 
-        private void frmProductsAddEdit_Load(object sender, EventArgs e)
+        private void frmWorkOrdersAddEdit_Load(object sender, EventArgs e)
         {
             _projectDataContext = new ProjectDataContext();
+            _workOrderRepository = new WorkOrderRepository(_projectDataContext);
             _productRepository = new ProductRepository(_projectDataContext);
             LanguageTranslate.ChangeLanguageForm(this);
+            LoadProductData();
             if (String.IsNullOrEmpty(_id))
             {
                 Clear();
@@ -66,65 +62,71 @@ namespace DongYang.View.Products
             {
                 GetData();
             }
+            _isLoadedCombobox = true;
+        }
+
+        private void LoadProductData()
+        {
+            cbbPartNumber.DataSource = _productRepository.GetData().OrderBy(_ => _.PartNumber).ToList();
+            cbbPartNumber.SelectedIndex = 0;
+        }
+
+        private void cbbPartNumber_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (_isLoadedCombobox && cbbPartNumber.SelectedValue != null && !String.IsNullOrEmpty(cbbPartNumber.Text.Trim()))
+            {
+                txtModel.Text = cbbPartNumber.SelectedValue.ToString().Split('|')[0];
+                txtPartName.Text = cbbPartNumber.SelectedValue.ToString().Split('|')[1];
+                txtPartNameShort.Text = cbbPartNumber.SelectedValue.ToString().Split('|')[2];
+            }
         }
 
         private void Clear()
         {
+            cbbPartNumber.SelectedIndex = -1;
             txtModel.Text = "";
-            txtPartNumber.Text = "";
             txtPartName.Text = "";
             txtPartNameShort.Text = "";
-            txtNote.Text = "";
+            txtQuantity.Value = 0;
             txtModel.Focus();
         }
 
         private void GetData()
         {
-            //Get Data Table Product
-            Product product = _productRepository.Get(_id);
-            txtModel.Text = product.Model;
-            txtPartNumber.Text = product.PartNumber;
-            txtPartName.Text = product.PartName;
-            txtPartNameShort.Text = product.PartNameShort;
-            txtNote.Text = product.Note;
-            chkUsing.Checked = (product.Status == GlobalConstants.StatusValue.Using);
+            //Get Data Table WorkOrder
+            WorkOrder workOrder = _workOrderRepository.Get(_id);
+            txtWorkOrderNo.Text = workOrder.WorkOrderNo;
+            dtpWorkOrderDate.Value = workOrder.WorkOrderDate;
+            cbbPartNumber.Text = workOrder.PartNumber;
+            txtModel.Text = workOrder.Model;
+            txtPartName.Text = workOrder.PartName;
+            txtPartNameShort.Text = workOrder.PartNameShort;
+            txtQuantity.Value = (decimal)workOrder.Quantity;
         }
 
         private bool CheckData()
         {
-            if (txtModel.Text.Trim() == "")
+            if (cbbPartNumber.SelectedValue == null || String.IsNullOrEmpty(cbbPartNumber.Text.Trim()))
             {
                 XtraMessageBox.Show(LanguageTranslate.ChangeLanguageText("Chưa điền dữ liệu"), LanguageTranslate.ChangeLanguageText("Thông báo"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtModel.Focus();
+                cbbPartNumber.DroppedDown = true;
                 return false;
             }
-            else if (txtPartNumber.Text.Trim() == "")
+            else if (txtQuantity.Value == 0)
             {
                 XtraMessageBox.Show(LanguageTranslate.ChangeLanguageText("Chưa điền dữ liệu"), LanguageTranslate.ChangeLanguageText("Thông báo"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtPartNumber.Focus();
+                txtQuantity.Focus();
                 return false;
             }
-            else if (txtPartName.Text.Trim() == "")
-            {
-                XtraMessageBox.Show(LanguageTranslate.ChangeLanguageText("Chưa điền dữ liệu"), LanguageTranslate.ChangeLanguageText("Thông báo"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtPartName.Focus();
-                return false;
-            }
-            else if (txtPartNameShort.Text.Trim() == "")
-            {
-                XtraMessageBox.Show(LanguageTranslate.ChangeLanguageText("Chưa điền dữ liệu"), LanguageTranslate.ChangeLanguageText("Thông báo"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtPartNameShort.Focus();
-                return false;
-            }
-            Product product = _productRepository.FirstOrDefault(_ => _.PartName.Equals(txtPartName.Text.Trim()));
-            if (product != null &&
+            WorkOrder workOrder = _workOrderRepository.FirstOrDefault(_ => _.WorkOrderNo.Equals(txtWorkOrderNo.Text.Trim()));
+            if (workOrder != null &&
                 (
                     String.IsNullOrEmpty(_id) ||
-                    (!String.IsNullOrEmpty(_id) && txtPartName.Text.Trim() != product.PartName)
+                    (!String.IsNullOrEmpty(_id) && txtWorkOrderNo.Text.Trim() != workOrder.WorkOrderNo)
                 ))
             {
                 XtraMessageBox.Show(LanguageTranslate.ChangeLanguageText("Dữ liệu đã tồn tại"), LanguageTranslate.ChangeLanguageText("Thông báo"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtPartName.Focus();
+                txtWorkOrderNo.Focus();
                 return false;
             }
             return true;
@@ -135,33 +137,25 @@ namespace DongYang.View.Products
             try
             {
                 if (!CheckData()) return;
-                //Table Product
-                Product product = new Product();
-                product.Id = _id;
-                product.Model = txtModel.Text.Trim();
-                product.PartNumber = txtPartNumber.Text.Trim();
-                product.PartName = txtPartName.Text.Trim();
-                product.PartNameShort = txtPartNameShort.Text.Trim();
-                product.Note = txtNote.Text.Trim();
-                product.Status = (chkUsing.Checked ? GlobalConstants.StatusValue.Using : GlobalConstants.StatusValue.NoUse);
-                _productRepository.Save(product);
+                //Table WorkOrder
+                WorkOrder workOrder = new WorkOrder();
+                workOrder.Id = _id;
+                workOrder.WorkOrderNo = txtWorkOrderNo.Text.Trim();
+                workOrder.WorkOrderDate = dtpWorkOrderDate.Value;
+                workOrder.PartNumber = cbbPartNumber.Text.Trim();
+                workOrder.Model = txtModel.Text.Trim();
+                workOrder.PartName = txtPartName.Text.Trim();
+                workOrder.PartNameShort = txtPartNameShort.Text.Trim();
+                workOrder.Quantity = (float)txtQuantity.Value;
+                _workOrderRepository.Save(workOrder);
                 UnitOfWork unitOfWork = new UnitOfWork(_projectDataContext);
                 int result = unitOfWork.Complete();
                 if (result > 0)
                 {
                     if (String.IsNullOrEmpty(_id))
                     {
-                        if (_quickAdd)
-                        {
-                            this.Tag = txtPartName.Text.Trim();
-                            DialogResult = DialogResult.OK;
-                            Close();
-                        }
-                        else
-                        {
-                            XtraMessageBox.Show(LanguageTranslate.ChangeLanguageText("Lưu thành công"), LanguageTranslate.ChangeLanguageText("Thông báo"));
-                            Clear();
-                        }
+                        XtraMessageBox.Show(LanguageTranslate.ChangeLanguageText("Lưu thành công"), LanguageTranslate.ChangeLanguageText("Thông báo"));
+                        Clear();
                     }
                     else
                     {
@@ -187,9 +181,18 @@ namespace DongYang.View.Products
             Close();
         }
 
-        private void chkUsing_CheckedChanged(object sender, EventArgs e)
+        private void btnProductAdd_Click(object sender, EventArgs e)
         {
-            chkNoUse.Checked = !chkUsing.Checked;
+            Products.frmProductsAddEdit frm = new Products.frmProductsAddEdit(true);
+            DialogResult dr = frm.ShowDialog();
+            if (dr == DialogResult.OK && frm.Tag != null)
+            {
+                _isLoadedCombobox = false;
+                LoadProductData();
+                cbbPartNumber.Text = (string)frm.Tag;
+                _isLoadedCombobox = true;
+                cbbPartNumber_SelectedValueChanged(null, null);
+            }
         }
     }
 }

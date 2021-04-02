@@ -45,7 +45,7 @@ namespace DongYang.View.Home
             this.btnTracingHistory = new DevExpress.XtraBars.BarButtonItem();
             this.btnReportWorkOrder = new DevExpress.XtraBars.BarButtonItem();
             this.btnReportPurchaseOrder = new DevExpress.XtraBars.BarButtonItem();
-            this.btnPurchaseOrder = new DevExpress.XtraBars.BarButtonItem();
+            this.btnShipmentOrder = new DevExpress.XtraBars.BarButtonItem();
             this.btnExport = new DevExpress.XtraBars.BarButtonItem();
             this.btnMonitoring = new DevExpress.XtraBars.BarButtonItem();
             this.btnPrintBarocde = new DevExpress.XtraBars.BarButtonItem();
@@ -58,6 +58,7 @@ namespace DongYang.View.Home
             this.rbpBaoCao = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.alertControl = new DevExpress.XtraBars.Alerter.AlertControl(this.components);
+            this.btnInventory = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -80,12 +81,13 @@ namespace DongYang.View.Home
             this.btnTracingHistory,
             this.btnReportWorkOrder,
             this.btnReportPurchaseOrder,
-            this.btnPurchaseOrder,
+            this.btnShipmentOrder,
             this.btnExport,
             this.btnMonitoring,
-            this.btnPrintBarocde});
+            this.btnPrintBarocde,
+            this.btnInventory});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 63;
+            this.ribbonControl1.MaxItemId = 64;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.PageHeaderItemLinks.Add(this.txtUser);
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
@@ -163,6 +165,7 @@ namespace DongYang.View.Home
             this.btnWorkOrder.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnWorkOrder.ImageOptions.SvgImage")));
             this.btnWorkOrder.LargeWidth = 100;
             this.btnWorkOrder.Name = "btnWorkOrder";
+            this.btnWorkOrder.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnWorkOrder_ItemClick);
             // 
             // btnProduct
             // 
@@ -189,6 +192,7 @@ namespace DongYang.View.Home
             this.btnTracingHistory.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnTracingHistory.ImageOptions.SvgImage")));
             this.btnTracingHistory.LargeWidth = 100;
             this.btnTracingHistory.Name = "btnTracingHistory";
+            this.btnTracingHistory.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnTracingHistory_ItemClick);
             // 
             // btnReportWorkOrder
             // 
@@ -197,6 +201,7 @@ namespace DongYang.View.Home
             this.btnReportWorkOrder.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnReportWorkOrder.ImageOptions.SvgImage")));
             this.btnReportWorkOrder.LargeWidth = 100;
             this.btnReportWorkOrder.Name = "btnReportWorkOrder";
+            this.btnReportWorkOrder.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnReportWorkOrder_ItemClick);
             // 
             // btnReportPurchaseOrder
             // 
@@ -205,14 +210,16 @@ namespace DongYang.View.Home
             this.btnReportPurchaseOrder.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnReportPurchaseOrder.ImageOptions.SvgImage")));
             this.btnReportPurchaseOrder.LargeWidth = 100;
             this.btnReportPurchaseOrder.Name = "btnReportPurchaseOrder";
+            this.btnReportPurchaseOrder.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnReportPurchaseOrder_ItemClick);
             // 
-            // btnPurchaseOrder
+            // btnShipmentOrder
             // 
-            this.btnPurchaseOrder.Caption = "Đơn hàng";
-            this.btnPurchaseOrder.Id = 56;
-            this.btnPurchaseOrder.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnPurchaseOrder.ImageOptions.SvgImage")));
-            this.btnPurchaseOrder.LargeWidth = 100;
-            this.btnPurchaseOrder.Name = "btnPurchaseOrder";
+            this.btnShipmentOrder.Caption = "Đơn hàng";
+            this.btnShipmentOrder.Id = 56;
+            this.btnShipmentOrder.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnPurchaseOrder.ImageOptions.SvgImage")));
+            this.btnShipmentOrder.LargeWidth = 100;
+            this.btnShipmentOrder.Name = "btnShipmentOrder";
+            this.btnShipmentOrder.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnShipmentOrder_ItemClick);
             // 
             // btnExport
             // 
@@ -221,6 +228,7 @@ namespace DongYang.View.Home
             this.btnExport.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnExport.ImageOptions.SvgImage")));
             this.btnExport.LargeWidth = 100;
             this.btnExport.Name = "btnExport";
+            this.btnExport.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnExport_ItemClick);
             // 
             // btnMonitoring
             // 
@@ -229,6 +237,7 @@ namespace DongYang.View.Home
             this.btnMonitoring.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnMonitoring.ImageOptions.SvgImage")));
             this.btnMonitoring.LargeWidth = 100;
             this.btnMonitoring.Name = "btnMonitoring";
+            this.btnMonitoring.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnMonitoring_ItemClick);
             // 
             // btnPrintBarocde
             // 
@@ -237,6 +246,7 @@ namespace DongYang.View.Home
             this.btnPrintBarocde.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnPrintBarocde.ImageOptions.SvgImage")));
             this.btnPrintBarocde.LargeWidth = 100;
             this.btnPrintBarocde.Name = "btnPrintBarocde";
+            this.btnPrintBarocde.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPrintBarocde_ItemClick);
             // 
             // rbpHeThong
             // 
@@ -278,7 +288,7 @@ namespace DongYang.View.Home
             this.ribbonPageGroup2.ItemLinks.Add(this.btnWorkOrder);
             this.ribbonPageGroup2.ItemLinks.Add(this.btnPrintBarocde);
             this.ribbonPageGroup2.ItemLinks.Add(this.btnMonitoring);
-            this.ribbonPageGroup2.ItemLinks.Add(this.btnPurchaseOrder);
+            this.ribbonPageGroup2.ItemLinks.Add(this.btnShipmentOrder);
             this.ribbonPageGroup2.ItemLinks.Add(this.btnExport);
             this.ribbonPageGroup2.Name = "ribbonPageGroup2";
             // 
@@ -294,6 +304,7 @@ namespace DongYang.View.Home
             this.ribbonPageGroup4.ItemLinks.Add(this.btnReportWorkOrder);
             this.ribbonPageGroup4.ItemLinks.Add(this.btnReportPurchaseOrder);
             this.ribbonPageGroup4.ItemLinks.Add(this.btnTracingHistory);
+            this.ribbonPageGroup4.ItemLinks.Add(this.btnInventory);
             this.ribbonPageGroup4.Name = "ribbonPageGroup4";
             // 
             // alertControl
@@ -312,6 +323,15 @@ namespace DongYang.View.Home
             this.alertControl.AppearanceText.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             this.alertControl.AutoHeight = true;
             this.alertControl.BeforeFormShow += new DevExpress.XtraBars.Alerter.AlertFormEventHandler(this.alertControl_BeforeFormShow);
+            // 
+            // btnInventory
+            // 
+            this.btnInventory.Caption = "Tồn kho sản phẩm";
+            this.btnInventory.Id = 63;
+            this.btnInventory.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnInventory.ImageOptions.SvgImage")));
+            this.btnInventory.LargeWidth = 100;
+            this.btnInventory.Name = "btnInventory";
+            this.btnInventory.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnInventory_ItemClick);
             // 
             // frmMain
             // 
@@ -354,11 +374,12 @@ namespace DongYang.View.Home
         private BarButtonItem btnTracingHistory;
         private BarButtonItem btnReportWorkOrder;
         private BarButtonItem btnReportPurchaseOrder;
-        private BarButtonItem btnPurchaseOrder;
+        private BarButtonItem btnShipmentOrder;
         private DevExpress.XtraBars.Alerter.AlertControl alertControl;
         private BarButtonItem btnMonitoring;
         private BarButtonItem btnPrintBarocde;
         private BarButtonItem btnExport;
+        private BarButtonItem btnInventory;
     }
 }
 

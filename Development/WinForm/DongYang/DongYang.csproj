@@ -131,9 +131,9 @@
     <Compile Include="Core\Helper\Logger.cs" />
     <Compile Include="Core\Helper\SecurityHelper.cs" />
     <Compile Include="Core\Repositories\IRepository.cs" />
-    <Compile Include="Migrations\202103311614359_initial-database.cs" />
-    <Compile Include="Migrations\202103311614359_initial-database.Designer.cs">
-      <DependentUpon>202103311614359_initial-database.cs</DependentUpon>
+    <Compile Include="Migrations\202104021639439_initial-database.cs" />
+    <Compile Include="Migrations\202104021639439_initial-database.Designer.cs">
+      <DependentUpon>202104021639439_initial-database.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Repositories\AuthorityGroupRepository.cs" />
     <Compile Include="Persistence\Repositories\ProductionRepository.cs" />
@@ -170,6 +170,24 @@
     </Compile>
     <Compile Include="View\Home\frmChangePassword.Designer.cs">
       <DependentUpon>frmChangePassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\ShipmentOrders\frmShipmentOrders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ShipmentOrders\frmShipmentOrders.Designer.cs">
+      <DependentUpon>frmShipmentOrders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\ShipmentOrders\frmShipmentOrdersAddEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ShipmentOrders\frmShipmentOrdersAddEdit.Designer.cs">
+      <DependentUpon>frmShipmentOrdersAddEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\WorkOrders\rptBarcode.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="View\WorkOrders\rptBarcode.Designer.cs">
+      <DependentUpon>rptBarcode.cs</DependentUpon>
     </Compile>
     <Compile Include="View\LanguageLibrarys\frmLanguageLibrary.cs">
       <SubType>Form</SubType>
@@ -219,8 +237,32 @@
     <Compile Include="Persistence\UnitOfWork.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Migrations\202103311614359_initial-database.resx">
-      <DependentUpon>202103311614359_initial-database.cs</DependentUpon>
+    <Compile Include="View\Inventorys\frmInventorys.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Inventorys\frmInventorys.Designer.cs">
+      <DependentUpon>frmInventorys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\WorkOrders\frmPrintBarcodes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\WorkOrders\frmPrintBarcodes.Designer.cs">
+      <DependentUpon>frmPrintBarcodes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\WorkOrders\frmWorkOrders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\WorkOrders\frmWorkOrders.Designer.cs">
+      <DependentUpon>frmWorkOrders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\WorkOrders\frmWorkOrdersAddEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\WorkOrders\frmWorkOrdersAddEdit.Designer.cs">
+      <DependentUpon>frmWorkOrdersAddEdit.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Migrations\202104021639439_initial-database.resx">
+      <DependentUpon>202104021639439_initial-database.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Home\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
@@ -233,6 +275,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\Home\frmChangePassword.resx">
       <DependentUpon>frmChangePassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ShipmentOrders\frmShipmentOrders.resx">
+      <DependentUpon>frmShipmentOrders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ShipmentOrders\frmShipmentOrdersAddEdit.resx">
+      <DependentUpon>frmShipmentOrdersAddEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\WorkOrders\rptBarcode.resx">
+      <DependentUpon>rptBarcode.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\LanguageLibrarys\frmLanguageLibrary.resx">
       <DependentUpon>frmLanguageLibrary.cs</DependentUpon>
@@ -266,6 +317,18 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="View\Inventorys\frmInventorys.resx">
+      <DependentUpon>frmInventorys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\WorkOrders\frmPrintBarcodes.resx">
+      <DependentUpon>frmPrintBarcodes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\WorkOrders\frmWorkOrders.resx">
+      <DependentUpon>frmWorkOrders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\WorkOrders\frmWorkOrdersAddEdit.resx">
+      <DependentUpon>frmWorkOrdersAddEdit.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -286,9 +349,7 @@
     <Content Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="View\PurchaseOrders\" />
     <Folder Include="View\Reports\" />
-    <Folder Include="View\WorkOrders\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -171,5 +171,80 @@ namespace DongYang.View.Home
                 f.Show();
             }
         }
+
+        private void btnWorkOrder_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            XtraForm frm = this.CheckExist(typeof(WorkOrders.frmWorkOrders));
+            if (frm != null)
+            {
+                frm.Activate();
+            }
+            else
+            {
+                WorkOrders.frmWorkOrders f = new WorkOrders.frmWorkOrders();
+                f.MdiParent = this;
+                f.Show();
+            }
+        }
+
+        private void btnPrintBarocde_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnMonitoring_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnShipmentOrder_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            XtraForm frm = this.CheckExist(typeof(ShipmentOrders.frmShipmentOrders));
+            if (frm != null)
+            {
+                frm.Activate();
+            }
+            else
+            {
+                ShipmentOrders.frmShipmentOrders f = new ShipmentOrders.frmShipmentOrders();
+                f.MdiParent = this;
+                f.Show();
+            }
+        }
+
+        private void btnExport_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnReportWorkOrder_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnReportPurchaseOrder_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnTracingHistory_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnInventory_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            XtraForm frm = this.CheckExist(typeof(Inventorys.frmInventorys));
+            if (frm != null)
+            {
+                frm.Activate();
+            }
+            else
+            {
+                Inventorys.frmInventorys f = new Inventorys.frmInventorys();
+                f.MdiParent = this;
+                f.Show();
+            }
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace DongYang.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202103311614359_initial-database"; }
+            get { return "202104021639439_initial-database"; }
         }
         
         string IMigrationMetadata.Source

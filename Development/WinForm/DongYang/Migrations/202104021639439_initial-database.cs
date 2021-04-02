@@ -93,8 +93,8 @@ namespace DongYang.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
-                        Model = c.String(),
                         PartNumber = c.String(),
+                        Model = c.String(),
                         PartName = c.String(),
                         PartNameShort = c.String(),
                         Note = c.String(),
@@ -145,6 +145,7 @@ namespace DongYang.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
+                        ShipmentOrderNo = c.String(),
                         ShipmentOrderDate = c.DateTime(nullable: false),
                         Model = c.String(),
                         PartNumber = c.String(),
@@ -186,9 +187,10 @@ namespace DongYang.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
+                        WorkOrderNo = c.String(),
                         WorkOrderDate = c.DateTime(nullable: false),
-                        Model = c.String(),
                         PartNumber = c.String(),
+                        Model = c.String(),
                         PartName = c.String(),
                         PartNameShort = c.String(),
                         Quantity = c.Single(nullable: false),

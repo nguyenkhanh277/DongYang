@@ -28,6 +28,8 @@ namespace DongYang.Persistence.Repositories
             if (String.IsNullOrEmpty(shipmentOrder.Id))
             {
                 shipmentOrder.Id = GetAutoID();
+                shipmentOrder.CompletedStatus = GlobalConstants.CompletedStatusValue.None;
+                shipmentOrder.Status = GlobalConstants.StatusValue.Using;
                 shipmentOrder.CreatedAt = DateTime.Now;
                 shipmentOrder.CreatedBy = GlobalConstants.username;
                 Add(shipmentOrder);
@@ -52,6 +54,27 @@ namespace DongYang.Persistence.Repositories
                     raw.EditedAt = DateTime.Now;
                     raw.EditedBy = GlobalConstants.username;
                     id = raw.Id;
+                }
+            }
+            catch (Exception ex)
+            {
+                error = true;
+                errorMessage = ex.ToString();
+            }
+        }
+
+        public void UpdateStatus(string id, GlobalConstants.StatusValue status)
+        {
+            error = false;
+            errorMessage = "";
+            try
+            {
+                var workOrder = FirstOrDefault(_ => _.Id.Equals(id));
+                if (workOrder != null)
+                {
+                    workOrder.Status = status;
+                    workOrder.EditedAt = DateTime.Now;
+                    workOrder.EditedBy = GlobalConstants.username;
                 }
             }
             catch (Exception ex)

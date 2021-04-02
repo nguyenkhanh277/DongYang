@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,6 +8,7 @@ namespace DongYang.Core.Domain
     {
         #region Fields
         public string Id { get; set; }
+        public string ShipmentOrderNo { get; set; }
         public DateTime ShipmentOrderDate { get; set; }
         public string Model { get; set; }
         public string PartNumber { get; set; }
@@ -16,6 +17,8 @@ namespace DongYang.Core.Domain
         public float Quantity { get; set; }
         public GlobalConstants.CompletedStatusValue CompletedStatus { get; set; }
         public GlobalConstants.StatusValue Status { get; set; }
+        [NotMapped]
+        public string Export { get; set; } = "Xuất hàng";
         #endregion
     }
 }

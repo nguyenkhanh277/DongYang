@@ -19,6 +19,7 @@ namespace DongYang.Core
         public static string userId = "";
         public static string username = "";
         public static string fullName = "";
+        public static string printerName = "";
         public enum AuthorityGroupValue { Admin, Confirm, Check, Approve, Import, Export }
         public enum GenderValue { Female, Male }
         public enum StatusValue { NoUse, Using }

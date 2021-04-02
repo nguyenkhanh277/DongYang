@@ -28,6 +28,8 @@ namespace DongYang.Persistence.Repositories
             if (String.IsNullOrEmpty(inventory.Id))
             {
                 inventory.Id = GetAutoID();
+                inventory.PrintedDate = DateTime.Now;
+                inventory.CompletedStatus = GlobalConstants.CompletedStatusValue.None;
                 inventory.CreatedAt = DateTime.Now;
                 inventory.CreatedBy = GlobalConstants.username;
                 Add(inventory);

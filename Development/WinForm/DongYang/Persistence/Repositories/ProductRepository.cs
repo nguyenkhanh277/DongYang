@@ -65,5 +65,29 @@ namespace DongYang.Persistence.Repositories
         {
             return Guid.NewGuid().ToString();
         }
+
+        public List<Product> GetData()
+        {
+            var query = GetAll();
+            List<Product> products = new List<Product>();
+            Product product = new Product();
+            if (query.Any())
+            {
+                foreach (var item in query)
+                {
+                    product = new Product();
+                    product.Id = item.Id;
+                    product.Model = item.Model;
+                    product.PartNumber = item.PartNumber;
+                    product.PartName = item.PartName;
+                    product.PartNameShort = item.PartNameShort;
+                    product.Datas = item.Model + "|" + item.PartName + "|" + item.PartNameShort;
+                    product.Note = item.Note;
+                    product.Status = item.Status;
+                    products.Add(product);
+                }
+            }
+            return products;
+        }
     }
 }
