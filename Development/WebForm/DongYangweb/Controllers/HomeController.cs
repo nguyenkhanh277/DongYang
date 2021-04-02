@@ -23,19 +23,19 @@ namespace DongYangweb.Controllers
             string description = "";
             try
             {
-                //if (!dbBusiness.ExistUser(username, connectionManagement.GetDefaultConnection()))
-                //{
-                //    result = "NG";
-                //    description = "Tài khoản này không tồn tại";
-                //}
-                //else
+                if (!dbBusiness.ExistUser(username, connectionManagement.GetDefaultConnection()))
                 {
-                    //if (!dbBusiness.CheckAuthorization(username, functionName, connectionManagement.GetDefaultConnection()))
-                    //{
-                    //    result = "NG";
-                    //    description = "Tài khoản này không có quyền";
-                    //}
-                    //else
+                    result = "NG";
+                    description = "Tài khoản này không tồn tại";
+                }
+                else
+                {
+                    if (!dbBusiness.CheckAuthorization(username, functionName, connectionManagement.GetDefaultConnection()))
+                    {
+                        result = "NG";
+                        description = "Tài khoản này không có quyền";
+                    }
+                    else
                     {
                         result = "OK";
                         description = "";

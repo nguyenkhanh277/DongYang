@@ -707,8 +707,53 @@ namespace DongYang.Migrations
                 new AuthorityGroup
                 {
                     Id = GlobalConstants.AuthorityGroupValue.Admin,
-                    AuthorityGroupName = "Quyền admin",
+                    AuthorityGroupName = "Quản trị hệ thống",
                     Sort = 0,
+                    Status = GlobalConstants.StatusValue.Using,
+                    CreatedAt = DateTime.Now,
+                    CreatedBy = "Administrator"
+                },
+                new AuthorityGroup
+                {
+                    Id = GlobalConstants.AuthorityGroupValue.Confirm,
+                    AuthorityGroupName = "Xác nhận sản phẩm",
+                    Sort = 1,
+                    Status = GlobalConstants.StatusValue.Using,
+                    CreatedAt = DateTime.Now,
+                    CreatedBy = "Administrator"
+                },
+                new AuthorityGroup
+                {
+                    Id = GlobalConstants.AuthorityGroupValue.Check,
+                    AuthorityGroupName = "Kiểm tra sản phẩm",
+                    Sort = 2,
+                    Status = GlobalConstants.StatusValue.Using,
+                    CreatedAt = DateTime.Now,
+                    CreatedBy = "Administrator"
+                },
+                new AuthorityGroup
+                {
+                    Id = GlobalConstants.AuthorityGroupValue.Approve,
+                    AuthorityGroupName = "Đánh giá sản phẩm",
+                    Sort = 3,
+                    Status = GlobalConstants.StatusValue.Using,
+                    CreatedAt = DateTime.Now,
+                    CreatedBy = "Administrator"
+                },
+                new AuthorityGroup
+                {
+                    Id = GlobalConstants.AuthorityGroupValue.Import,
+                    AuthorityGroupName = "Nhập kho sản phẩm",
+                    Sort = 4,
+                    Status = GlobalConstants.StatusValue.Using,
+                    CreatedAt = DateTime.Now,
+                    CreatedBy = "Administrator"
+                },
+                new AuthorityGroup
+                {
+                    Id = GlobalConstants.AuthorityGroupValue.Export,
+                    AuthorityGroupName = "Xuất kho sản phẩm",
+                    Sort = 5,
                     Status = GlobalConstants.StatusValue.Using,
                     CreatedAt = DateTime.Now,
                     CreatedBy = "Administrator"

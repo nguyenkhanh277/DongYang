@@ -17,8 +17,10 @@
         </table>
         <div class="MenuBody">
             @*<div style="display: block;" id="page1">*@
-            <input type="button" id="btnProduction" class="Button" value="Xác nhận sản phẩm" onclick="Production()">
-            @*<input type="button" id="btnCheckProduct" class="Button" value="Lich su say san pham" onclick="CheckProduct()">*@
+            <input type="button" id="btnConfirmProduct" class="Button" value="Xác nhận sản phẩm" onclick="ConfirmProduct()">
+            <input type="button" id="btnCheckProduct" class="Button" value="Kiểm tra sản phẩm" onclick="CheckProduct()">
+            <input type="button" id="btnApproveProduct" class="Button" value="Đánh giá sản phẩm" onclick="ApproveProduct()">
+            <input type="button" id="btnImportProduct" class="Button" value="Nhập kho sản phẩm" onclick="ImportProduct()">
             @*</div>*@
             @*<div style="display: block;" id="page2">*@
             @*</div>*@
@@ -54,8 +56,17 @@
     //    document.getElementById(firstItem).focus();
     //}
 
-    var Production = function () {
-        window.location = '@Url.Action("Index", "Production")';
+    var ConfirmProduct = function () {
+        window.location = '@Url.Action("ConfirmProduct", "Production")';
+    };
+    var CheckProduct = function () {
+        window.location = '@Url.Action("CheckProduct", "Production")';
+    };
+    var ApproveProduct = function () {
+        window.location = '@Url.Action("ApproveProduct", "Production")';
+    };
+    var ImportProduct = function () {
+        window.location = '@Url.Action("ImportProduct", "Production")';
     };
 </script>
 

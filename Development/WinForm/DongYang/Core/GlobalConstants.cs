@@ -19,7 +19,7 @@ namespace DongYang.Core
         public static string userId = "";
         public static string username = "";
         public static string fullName = "";
-        public enum AuthorityGroupValue { Admin }
+        public enum AuthorityGroupValue { Admin, Confirm, Check, Approve, Import, Export }
         public enum GenderValue { Female, Male }
         public enum StatusValue { NoUse, Using }
         public enum CompletedStatusValue { None, OK, Scrap }

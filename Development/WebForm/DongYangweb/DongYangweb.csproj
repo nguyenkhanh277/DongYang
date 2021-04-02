@@ -200,11 +200,12 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Production\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Production\End.cshtml" />
-    <Content Include="Views\Production\Continue.cshtml" />
+    <Content Include="Views\Production\ConfirmProduct.cshtml" />
+    <Content Include="Views\Production\ApproveProduct.cshtml" />
+    <Content Include="Views\Production\CheckProduct.cshtml" />
+    <Content Include="Views\Production\ImportProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -12,424 +12,187 @@ namespace DongYangweb.Controllers
     {
         ConnectionManagement _connectionManagement = new ConnectionManagement();
         DbBusiness _dbBusiness = new DbBusiness();
-        enum ResultStatusValue { Processing, OK, Timeless, Timeout }
-        enum CompletedStatusValue { None, OK, NG }
-        enum RequestScanValue { No, Yes }
-        enum StatusValue { NoUse, Using }
-        string _reason = "";
         string _username = "";
         string _barcode = "";
-        string _partNumber = "";
-        string _placeNo = "";
-        string _scanInOut = "";
-        float _dungSai = 5;
-
-        string _productionIdCurrent = "";
-        int _stepNoCurrent = 0;
-        string _stepNameCurrent = "";
-        float _dryingTimeCurrent = 0;
-        DateTime _timeStartCurrent = new DateTime();
-        DateTime _timeEndCurrent = new DateTime();
-        TimeSpan _timeSpanCurrent = new TimeSpan();
-        float _dryingTimeActualCurrent = 0;
-        int _resultStatusActualCurrent = 0;
-
-        string _productionIdPrev = "";
-        int _stepNoPrev = 0;
-        float _dryingTimePrev = 0;
-        DateTime _timeStartPrev = new DateTime();
-        DateTime _timeEndPrev = new DateTime();
-        TimeSpan _timeSpanPrev = new TimeSpan();
-        float _dryingTimeActualPrev = 0;
-        int _resultStatusActualPrev = 0;
-
-        int _stepNoNext = 0;
-        float _dryingTimeNext = 0;
-        int _completedStatus = 0;
+        string _productionStatus = "";
+        string _actionStatus = "";
+        string _completedStatus = "";
 
         string _result = "NG";
         string _description = "";
-        string _continues = "";
 
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult End(string username, string placeNo, string barcode, string result, string message)
+        public ActionResult ConfirmProduct()
         {
-            ViewBag.username = username;
-            ViewBag.placeNo = placeNo;
-            ViewBag.barcode = barcode;
-            ViewBag.result = result;
-            ViewBag.message = message;
             return View();
         }
 
-        public ActionResult Continue(string username, string placeNo, string barcode, string result, string message)
+        public ActionResult CheckProduct()
         {
-            ViewBag.username = username;
-            ViewBag.placeNo = placeNo;
-            ViewBag.barcode = barcode;
-            ViewBag.result = result;
-            ViewBag.message = message;
             return View();
         }
-        
+
+        public ActionResult ApproveProduct()
+        {
+            return View();
+        }
+
+        public ActionResult ImportProduct()
+        {
+            return View();
+        }
+
         [ActionName("VerifyProduct")]
-        public ActionResult VerifyProduct(string username, string placeNo, string barcode, string reason)
+        public ActionResult VerifyProduct(string username, string barcode, string productionStatus, string actionStatus)
         {
             try
             {
-                _dungSai = _dbBusiness.GetDungSai(_connectionManagement.GetDefaultConnection());
-                _placeNo = placeNo;
-                _reason = reason;
-                string[] place = _placeNo.Split('-');
-                if (String.IsNullOrEmpty(placeNo) || place.Length != 2)
+                _connectionManagement = new ConnectionManagement();
+                _dbBusiness = new DbBusiness();
+                _username = username;
+                _barcode = barcode;
+                _productionStatus = productionStatus;
+                _actionStatus = actionStatus;
+                _result = "NG";
+                _description = "";
+                if (CheckData())
                 {
-                    _description += "KHÔNG TÌM THẤY VỊ TRÍ" + Environment.NewLine;
-                    _partNumber = "Not Found Address";
-                }
-                else
-                {
-                    _scanInOut = place[0];
-                    _stepNameCurrent = place[1];
-                    _barcode = barcode;
-                    if (VerifyProduct())
+                    if (VerifyData())
                     {
-                        if (VerifyStep())
+                        if (WriteData())
                         {
-                            if (VerifyProductMatrixPrev())
-                            {
-                                if (VerifyTimePrev())
-                                {
-                                    if (VerifyProductMatrixCurrent())
-                                    {
-                                        if (VerifyTimeCurrent())
-                                        {
-                                            VerifyProductMatrixNext();
-                                            if (WriteData())
-                                            {
-                                                _result = "OK";
-                                                if (_scanInOut == "Vao")//Vị trí scan là đầu Vao
-                                                {
-                                                    MessageStepName("Vị trí tiếp theo là ", "Ra", _stepNoCurrent);
-                                                }
-                                                else//Vị trí scan là đầu ra
-                                                {
-                                                    MessageStepName("Vị trí tiếp theo là ", "Vao", _stepNoNext);
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                            _result = "OK";
                         }
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 _result = "NG";
-                _description = "";
+                _description = "Lỗi trong quá trình xử lý. " + Environment.NewLine + ex.ToString();
             }
-            return Content(_result + "#" + _description + "#" + _continues);
+            return Content(_result + "#" + _description);
         }
 
-        private bool VerifyProduct()
+        private bool CheckData()
         {
             bool result = false;
-            DataTable product = _dbBusiness.GetProduct(_barcode, _connectionManagement.GetDefaultConnection());
-            if (product.Rows.Count == 0)
+            if (_dbBusiness.CheckBarcode(_barcode, _connectionManagement.GetDefaultConnection()))//Mã vạch có tồn tại
             {
-                _description += "KHÔNG TÌM THẤY SẢN PHẨM " + _barcode + Environment.NewLine;
-                _partNumber = "Not Found PartNumber";
-            }
-            else
-            {
-                _partNumber = product.Rows[0]["PartNumber"].ToString();
                 result = true;
             }
-            return result;
-        }
-
-        private bool VerifyStep()
-        {
-            bool result = false;
-            DataTable step = _dbBusiness.GetStepNo(_stepNameCurrent, _barcode, _connectionManagement.GetDefaultConnection());
-            if (step.Rows.Count == 0)
-            {
-                _description += "KHÔNG TÌM THẤY BƯỚC SẤY " + _stepNameCurrent.ToUpper() + Environment.NewLine;
-                _description += "hoặc sản phẩm " + _partNumber + Environment.NewLine + " đã được xử lý qua bước này" + Environment.NewLine;
-            }
             else
             {
-                _stepNoCurrent = int.Parse(step.Rows[0]["StepNo"].ToString());
-                _stepNoPrev = _stepNoCurrent - 1;
-                _stepNoNext = _stepNoCurrent + 1;
-                result = true;
+                _description += "Mã vạch không tồn tại." + Environment.NewLine;
             }
             return result;
         }
 
-        private void MessageStepNo(string message, DataTable dtb)
-        {
-            string inOut = "";
-            int stepNo = 0;
-            if (stepNo == 0)
-            {
-                if (dtb.Rows.Count > 0)
-                {
-
-                    if (dtb.Rows[0]["ScanOut"].ToString() != "")
-                    {
-                        inOut = "Vao";
-                        stepNo = int.Parse(dtb.Rows[0]["StepNo"].ToString()) + 1;
-                    }
-                    else if (dtb.Rows[0]["ScanOut"].ToString() == "")
-                    {
-                        inOut = "Ra";
-                        stepNo = int.Parse(dtb.Rows[0]["StepNo"].ToString());
-                    }
-                    else
-                    {
-                        inOut = "Vao";
-                        stepNo = int.Parse(dtb.Rows[0]["StepNo"].ToString());
-                    }
-                }
-                else
-                {
-                    inOut = "Vao";
-                    stepNo = 1;
-                }
-            }
-            if (stepNo > 0)
-            {
-                MessageStepName(message, inOut, stepNo);
-            }
-        }
-
-        private void MessageStepName(string message, string inOut, int stepNo)
-        {
-            DataTable step = _dbBusiness.GetStepName(stepNo, _connectionManagement.GetDefaultConnection());
-            string stepName = "";
-            if (step.Rows.Count > 0)
-            {
-                stepName = step.Rows[0][0].ToString();
-            }
-            if (!String.IsNullOrEmpty(stepName))
-            {
-                _description += message + inOut + "-" + stepName + Environment.NewLine;
-            }
-        }
-
-        private bool VerifyProductMatrixPrev()
-        {
-            bool result = true;
-            if (_stepNoPrev > 0)
-            {
-                DataTable productMatrixPrev = _dbBusiness.GetProductMatrix(_partNumber, _stepNoPrev.ToString(), _connectionManagement.GetDefaultConnection());
-                //Bước trước không yêu cầu scan thì sẽ tự động kết thúc
-                if (productMatrixPrev.Rows.Count > 0 && int.Parse(productMatrixPrev.Rows[0]["RequestScanOut"].ToString()) == (int)RequestScanValue.No)
-                    _dryingTimePrev = float.Parse(productMatrixPrev.Rows[0]["DryingTime"].ToString()) * 60;
-                else//Bước trước yêu cầu phải scan
-                {
-                    DataTable productionPrev = _dbBusiness.GetProduction(_barcode, "", _connectionManagement.GetDefaultConnection());
-                    if (productionPrev.Rows.Count > 0 && productionPrev.Rows[0]["StepNo"].ToString() == _stepNoCurrent.ToString())
-                    { }
-                    else
-                    {
-                        result = false;
-                        _description += "KHÔNG ĐÚNG VỊ TRÍ" + Environment.NewLine;
-                        MessageStepNo("Vị trí phải là ", productionPrev);
-                    }
-                }
-            }
-            return result;
-        }
-
-        private bool VerifyTimePrev()
-        {
-            bool result = true;
-            if (_stepNoPrev > 0)
-            {
-                DataTable productionPrev = _dbBusiness.GetProduction(_barcode, _stepNoPrev.ToString(), _connectionManagement.GetDefaultConnection());
-                if (productionPrev.Rows.Count == 0)//Bước trước chưa được nhập
-                {
-                    result = false;
-                    _description += "KHÔNG ĐÚNG VỊ TRÍ" + Environment.NewLine;
-                    productionPrev = _dbBusiness.GetProduction(_barcode, "", _connectionManagement.GetDefaultConnection());
-                    MessageStepNo("Vị trí phải là ", productionPrev);
-                }
-                else if (productionPrev.Rows.Count > 0 && productionPrev.Rows[0]["ScanOut"].ToString() == "")//Bước trước chưa kết thúc
-                {
-                    //Tính thời gian sấy bước trước
-                    _timeStartPrev = DateTime.Parse(productionPrev.Rows[0]["ScanIn"].ToString());
-                    _timeEndPrev = DateTime.Now;
-                    _timeSpanPrev = _timeEndPrev - _timeStartPrev;
-                    _dryingTimeActualPrev = float.Parse(_timeSpanPrev.TotalMinutes.ToString("N0"));
-                    _productionIdPrev = productionPrev.Rows[0]["Id"].ToString();
-                    //So sánh thời gian sấy thực tế > thời gian sấy yêu cầu + dung sai -> Quá thời gian
-                    if (_dryingTimePrev > 0 && _dryingTimeActualPrev > _dryingTimePrev + _dungSai)
-                    {
-                        _continues = "continues";
-                        _description += "Sản phẩm sấy QUÁ thời gian." + Environment.NewLine;
-                        _description += "Số thời gian sấy thực tế: " + _dryingTimeActualPrev + "." + Environment.NewLine;
-                        _description += "Số thời gian sấy yêu cầu: " + _dryingTimePrev + "." + Environment.NewLine;
-                        _description += "Thời gian bắt đầu sấy: " + _timeStartPrev.ToString("dd/MM/yy HH:mm") + "." + Environment.NewLine;
-                        _description += "Thời gian kết thúc sấy: " + _timeEndPrev.ToString("dd/MM/yy HH:mm") + "." + Environment.NewLine;
-                        _resultStatusActualPrev = (int)ResultStatusValue.Timeout;
-                        if (String.IsNullOrEmpty(_reason))
-                            result = false;
-                    }
-                    else if (_dryingTimePrev > 0 && _dryingTimeActualPrev < _dryingTimePrev - _dungSai)//So sánh thời gian sấy thực tế < thời gian sấy yêu cầu - dung sai -> Thiếu thời gian
-                    {
-                        _continues = "continues";
-                        _description += "Sản phẩm sấy THIẾU thời gian." + Environment.NewLine;
-                        _description += "Số thời gian sấy thực tế: " + _dryingTimeActualPrev + "." + Environment.NewLine;
-                        _description += "Số thời gian sấy yêu cầu: " + _dryingTimePrev + "." + Environment.NewLine;
-                        _description += "Thời gian bắt đầu sấy: " + _timeStartPrev.ToString("dd/MM/yy HH:mm") + "." + Environment.NewLine;
-                        _description += "Thời gian kết thúc sấy: " + _timeEndPrev.ToString("dd/MM/yy HH:mm") + "." + Environment.NewLine;
-                        _resultStatusActualPrev = (int)ResultStatusValue.Timeless;
-                        if (String.IsNullOrEmpty(_reason))
-                            result = false;
-                    }
-                    else
-                        _resultStatusActualPrev = (int)ResultStatusValue.OK;
-                }
-            }
-            return result;
-        }
-
-        private bool VerifyProductMatrixCurrent()
-        {
-            bool result = true;
-            DataTable productMatrix = _dbBusiness.GetProductMatrix(_partNumber, _stepNoCurrent.ToString(), _connectionManagement.GetDefaultConnection());
-            //Không tìm thấy bước hiện tại
-            if (productMatrix.Rows.Count == 0)
-            {
-                result = false;
-                _description += "KHÔNG TÌM THẤY BƯỚC SẤY " + Environment.NewLine + "của sản phẩm " + _partNumber + Environment.NewLine;
-            }
-            else
-                _dryingTimeCurrent = float.Parse(productMatrix.Rows[0]["DryingTime"].ToString()) * 60;
-            return result;
-        }
-
-        private bool VerifyTimeCurrent()
+        private bool VerifyData()
         {
             bool result = false;
-            DataTable productionCurrent = _dbBusiness.GetProduction(_barcode, _stepNoCurrent.ToString(), _connectionManagement.GetDefaultConnection());
-            if (_scanInOut == "Vao")//Vị trí scan là đầu Vao
+            DataTable production = _dbBusiness.GetProduction(_barcode, _connectionManagement.GetDefaultConnection());
+            if (_actionStatus == "0")//Xác nhận sản phẩm
             {
-                if (productionCurrent.Rows.Count > 0 && productionCurrent.Rows[0]["ScanIn"].ToString() != "")//Bước sấy đã được nhập rồi thì không cho scan lần 2
+                //Chỉ được xác nhận 1 lần hoặc sản phẩm vừa bị bảo lưu
+                if (production.Rows.Count == 0//Xác nhận lần đầu
+                    ||//Hoặc
+                    production.Rows[0]["ProductionStatus"].ToString() == "3")//Sản phẩm vừa bị Hold
                 {
-                    _description += "KHÔNG ĐÚNG VỊ TRÍ" + Environment.NewLine;
-                    MessageStepName("Vị trí phải là ", "Ra", _stepNoCurrent);
-                }
-                else
                     result = true;
-            }
-            else//Vị trí scan là đầu ra
-            {
-                if (productionCurrent.Rows.Count == 0)//Bước sấy chưa được nhập
-                {
-                    _description += "KHÔNG ĐÚNG VỊ TRÍ" + Environment.NewLine;
-                    MessageStepName("Vị trí phải là ", "Vao", _stepNoCurrent);
-                }
-                else if (productionCurrent.Rows.Count > 0 && productionCurrent.Rows[0]["ScanOut"].ToString() != "")//Bước sấy đã được kết thúc rồi thì không cho scan lần 2
-                {
-                    _description += "KHÔNG ĐÚNG VỊ TRÍ" + Environment.NewLine;
-                    MessageStepName("Vị trí phải là ", "Vao", _stepNoNext);
                 }
                 else
                 {
-                    //Tính thời gian sấy bước trước
-                    _timeStartCurrent = DateTime.Parse(productionCurrent.Rows[0]["ScanIn"].ToString());
-                    _timeEndCurrent = DateTime.Now;
-                    _timeSpanCurrent = _timeEndCurrent - _timeStartCurrent;
-                    _dryingTimeActualCurrent = float.Parse(_timeSpanCurrent.TotalMinutes.ToString("N0"));
-                    _productionIdCurrent = productionCurrent.Rows[0]["Id"].ToString();
-                    //So sánh thời gian sấy thực tế > thời gian sấy yêu cầu + dung sai -> Quá thời gian
-                    if (_dryingTimeCurrent > 0 && _dryingTimeActualCurrent > _dryingTimeCurrent + _dungSai)
+                    _description += "Xác nhận thất bại." + Environment.NewLine;
+                    _description += "Chỉ được xác nhận 1 lần hoặc sản phẩm vừa bị bảo lưu." + Environment.NewLine;
+                }
+            }
+            else if (_actionStatus == "1")//Kiểm tra sản phẩm
+            {
+                //Chỉ kiểm tra khi sản phẩm vừa xác nhận OK
+                if (production.Rows.Count > 0
+                    && production.Rows[0]["Action"].ToString() == "0"//Vừa xác nhận sản phẩm
+                    && production.Rows[0]["ProductionStatus"].ToString() == "1")//Sản phẩm OK
+                {
+                    result = true;
+                }
+                else if (production.Rows.Count == 0)
+                {
+                    _description += "Kiểm tra thất bại." + Environment.NewLine;
+                    _description += "Sản phẩm này chưa được công nhân xác nhận." + Environment.NewLine;
+                }
+                else
+                {
+                    _description += "Kiểm tra thất bại." + Environment.NewLine;
+                    _description += "Chỉ kiểm tra khi sản phẩm vừa được công nhân xác nhận OK." + Environment.NewLine;
+                }
+            }
+            else if (_actionStatus == "2")//Đánh giá sản phẩm
+            {
+                //Chỉ đánh giá khi sản phẩm vừa kiểm tra NG
+                if (production.Rows.Count > 0
+                    && production.Rows[0]["Action"].ToString() == "1"//Vừa kiểm tra sản phẩm
+                    && production.Rows[0]["ProductionStatus"].ToString() == "2")//Sản phẩm NG
+                {
+                    if (_productionStatus == "2")//Đánh giá NG
                     {
-                        _continues = "continues";
-                        _description += "Sản phẩm sấy QUÁ thời gian." + Environment.NewLine;
-                        _description += "Số thời gian sấy thực tế: " + _dryingTimeActualCurrent + "." + Environment.NewLine;
-                        _description += "Số thời gian sấy yêu cầu: " + _dryingTimeCurrent + "." + Environment.NewLine;
-                        _description += "Thời gian bắt đầu sấy: " + _timeStartCurrent.ToString("dd/MM/yy HH:mm") + "." + Environment.NewLine;
-                        _description += "Thời gian kết thúc sấy: " + _timeEndCurrent.ToString("dd/MM/yy HH:mm") + "." + Environment.NewLine;
-                        _resultStatusActualCurrent = (int)ResultStatusValue.Timeout;
-                        if (!String.IsNullOrEmpty(_reason))
-                            result = true;
+                        _completedStatus = "2";//Scrap
                     }
-                    else if (_dryingTimeCurrent > 0 && _dryingTimeActualCurrent < _dryingTimeCurrent - _dungSai)//So sánh thời gian sấy thực tế < thời gian sấy yêu cầu - dung sai -> Thiếu thời gian
-                    {
-                        _continues = "continues";
-                        _description += "Sản phẩm sấy THIẾU thời gian." + Environment.NewLine;
-                        _description += "Số thời gian sấy thực tế: " + _dryingTimeActualCurrent + "." + Environment.NewLine;
-                        _description += "Số thời gian sấy yêu cầu: " + _dryingTimeCurrent + "." + Environment.NewLine;
-                        _description += "Thời gian bắt đầu sấy: " + _timeStartCurrent.ToString("dd/MM/yy HH:mm") + "." + Environment.NewLine;
-                        _description += "Thời gian kết thúc sấy: " + _timeEndCurrent.ToString("dd/MM/yy HH:mm") + "." + Environment.NewLine;
-                        _resultStatusActualCurrent = (int)ResultStatusValue.Timeless;
-                        if (!String.IsNullOrEmpty(_reason))
-                            result = true;
-                    }
-                    else
-                    {
-                        _resultStatusActualCurrent = (int)ResultStatusValue.OK;
-                        result = true;
-                    }
+                    result = true;
+                }
+                else if (production.Rows.Count == 0)
+                {
+                    _description += "Kiểm tra thất bại." + Environment.NewLine;
+                    _description += "Sản phẩm này chưa được công nhân xác nhận." + Environment.NewLine;
+                }
+                else
+                {
+                    _description += "Đánh giá thất bại." + Environment.NewLine;
+                    _description += "Chỉ đánh giá khi sản phẩm vừa được QC kiểm tra NG." + Environment.NewLine;
+                }
+            }
+            else if (_actionStatus == "3")//Nhập kho sản phẩm
+            {
+                //Chỉ nhập kho khi sản phẩm vừa được QC kiểm tra OK hoặc vừa được QA đánh giá OK
+                if (production.Rows.Count > 0 &&
+                    (
+                        production.Rows[0]["Action"].ToString() == "1"//Vừa kiểm tra sản phẩm
+                        ||//Hoặc
+                        production.Rows[0]["Action"].ToString() == "2"//Vừa đánh giá sản phẩm
+                    ) && production.Rows[0]["ProductionStatus"].ToString() == "1"//Sản phẩm OK
+                )
+                {
+                    _completedStatus = "1";//OK
+                    result = true;
+                }
+                else if (production.Rows.Count == 0)
+                {
+                    _description += "Kiểm tra thất bại." + Environment.NewLine;
+                    _description += "Sản phẩm này chưa được công nhân xác nhận." + Environment.NewLine;
+                }
+                else
+                {
+                    _description += "Nhập kho thất bại." + Environment.NewLine;
+                    _description += "Chỉ nhập kho khi sản phẩm vừa được QC kiểm tra OK hoặc vừa được QA đánh giá OK." + Environment.NewLine;
                 }
             }
             return result;
-        }
-
-        private void VerifyProductMatrixNext()
-        {
-            if (_stepNoNext > 0 && (String.IsNullOrEmpty(_reason) || (!String.IsNullOrEmpty(_reason) && !_reason.Contains("Ket thuc:"))))
-            {
-                DataTable productMatrixNext = _dbBusiness.GetProductMatrix(_partNumber, _stepNoNext.ToString(), _connectionManagement.GetDefaultConnection());
-                //Không còn bước sau thì sẽ kết thúc
-                if (productMatrixNext.Rows.Count == 0)
-                {
-                    _completedStatus = (int)CompletedStatusValue.OK;
-                }
-                //Bước sau không yêu cầu scan thì sẽ tự động nhập
-                else if (productMatrixNext.Rows.Count > 0 && int.Parse(productMatrixNext.Rows[0]["RequestScanIn"].ToString()) == (int)RequestScanValue.No)
-                {
-                    //Lấy thời gian sấy bước sau
-                    _dryingTimeNext = float.Parse(productMatrixNext.Rows[0]["DryingTime"].ToString()) * 60;
-                    if (_dryingTimeNext == 0)
-                        _completedStatus = (int)CompletedStatusValue.OK;
-                }
-            }
         }
 
         private bool WriteData()
         {
             bool result = false;
-            //int completedStatus = (int)CompletedStatusValue.None;
-            if (!String.IsNullOrEmpty(_reason) && _reason.Contains("Ket thuc:"))
-                _completedStatus = (int)CompletedStatusValue.NG;
-            if (_scanInOut == "Vao")//Vị trí scan là đầu Vao
+            if (_dbBusiness.SetProduction(_username, _barcode, _productionStatus, _actionStatus, _completedStatus, _connectionManagement.GetDefaultConnection()))
             {
-                if (_dbBusiness.ScanIn(_barcode, _partNumber, _stepNoCurrent, _dryingTimeCurrent, (int)ResultStatusValue.Processing, (int)CompletedStatusValue.None, (int)StatusValue.Using, _username, _productionIdPrev, _timeEndPrev, _dryingTimeActualPrev, _resultStatusActualPrev, "Automatic", _connectionManagement.GetDefaultConnection()))
-                    result = true;
-                else
-                    _description += "Xác nhận sản phẩm sấy thất bại do không kết nối được máy chủ" + Environment.NewLine;
+                result = true;
             }
-            else//Vị trí scan là đầu ra
+            else
             {
-                if (!String.IsNullOrEmpty(_productionIdCurrent) && _dbBusiness.ScanOut(_productionIdCurrent, _timeEndCurrent, _dryingTimeActualCurrent, _resultStatusActualCurrent, _reason, _completedStatus, _username, _barcode, _partNumber, _stepNoNext, _dryingTimeNext, (int)ResultStatusValue.Processing, (int)CompletedStatusValue.None, (int)StatusValue.Using, _connectionManagement.GetDefaultConnection()))
-                    result = true;
-                else
-                {
-                    if (!String.IsNullOrEmpty(_reason) && _reason.Contains("Ket thuc:"))
-                        _description += "Xác nhận kết thúc sản phẩm sấy thất bại do không kết nối được máy chủ" + Environment.NewLine;
-                    else
-                        _description += "Xác nhận sản phẩm sấy thất bại do không kết nối được máy chủ" + Environment.NewLine;
-                }
+                _description = "Lỗi trong quá trình xử lý dữ liệu do không kết nối được máy chủ " + Environment.NewLine;
             }
             return result;
         }
