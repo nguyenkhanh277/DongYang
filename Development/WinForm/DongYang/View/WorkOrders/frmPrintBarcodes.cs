@@ -106,9 +106,10 @@ namespace DongYang.View.WorkOrders
                 dtbBarcode.Columns.Add("WorkOrderNo", typeof(string));
                 dtbBarcode.Columns.Add("WorkOrderDate", typeof(string));
                 dtbBarcode.Columns.Add("Quantity", typeof(string));
+                dtbBarcode.Columns.Add("Remain", typeof(string));
                 dtbBarcode.Columns.Add("Model", typeof(string));
                 dtbBarcode.Columns.Add("PartNumber", typeof(string));
-                dtbBarcode.Columns.Add("PartNameShort", typeof(string));
+                dtbBarcode.Columns.Add("PartName", typeof(string));
                 float quantity = (float)txtQuantity.Value;
                 float quantityPerCart = (float)txtQuantityPerCart.Value;
                 float actual = 0;
@@ -139,6 +140,7 @@ namespace DongYang.View.WorkOrders
                         "W/O: " + txtWorkOrderNo.Text.Trim(),
                         "Date: " + dtpWorkOrderDate.Value.ToString("dd/MM/yyyy HH:mm"),
                         "Q'ty: " + actual.ToString("N0"),
+                        "",
                         "Model: " + txtModel.Text.Trim(),
                         "P/N: " + txtPartNumber.Text.Trim(),
                         "Name: " + txtPartNameShort.Text.Trim()
@@ -164,6 +166,7 @@ namespace DongYang.View.WorkOrders
                     reportPrintTool.AutoShowParametersPanel = false;
                     reportPrintTool.Print();
                     XtraMessageBox.Show(LanguageTranslate.ChangeLanguageText("In thành công"), LanguageTranslate.ChangeLanguageText("Thông báo"));
+                    Close();
                 }
                 else
                 {

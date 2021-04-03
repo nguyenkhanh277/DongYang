@@ -6,11 +6,12 @@ using DevExpress.XtraReports.UI;
 
 namespace DongYang.View.WorkOrders
 {
-    public partial class rptBarcode : DevExpress.XtraReports.UI.XtraReport
+    public partial class rptBarcodeOld : DevExpress.XtraReports.UI.XtraReport
     {
-        public rptBarcode()
+        public rptBarcodeOld()
         {
             InitializeComponent();
         }
+
     }
 }

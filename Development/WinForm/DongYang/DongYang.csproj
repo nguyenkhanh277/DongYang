@@ -209,6 +209,12 @@
     <Compile Include="View\WorkOrders\rptBarcode.Designer.cs">
       <DependentUpon>rptBarcode.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\WorkOrders\rptBarcodeOld.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="View\WorkOrders\rptBarcodeOld.Designer.cs">
+      <DependentUpon>rptBarcodeOld.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\LanguageLibrarys\frmLanguageLibrary.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -313,6 +319,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\WorkOrders\rptBarcode.resx">
       <DependentUpon>rptBarcode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\WorkOrders\rptBarcodeOld.resx">
+      <DependentUpon>rptBarcodeOld.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\LanguageLibrarys\frmLanguageLibrary.resx">
       <DependentUpon>frmLanguageLibrary.cs</DependentUpon>
