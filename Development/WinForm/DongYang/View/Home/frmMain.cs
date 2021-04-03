@@ -219,17 +219,47 @@ namespace DongYang.View.Home
 
         private void btnReportWorkOrder_ItemClick(object sender, ItemClickEventArgs e)
         {
-
+            XtraForm frm = this.CheckExist(typeof(Reports.frmReportWorkOrders));
+            if (frm != null)
+            {
+                frm.Activate();
+            }
+            else
+            {
+                Reports.frmReportWorkOrders f = new Reports.frmReportWorkOrders();
+                f.MdiParent = this;
+                f.Show();
+            }
         }
 
         private void btnReportPurchaseOrder_ItemClick(object sender, ItemClickEventArgs e)
         {
-
+            XtraForm frm = this.CheckExist(typeof(Reports.frmReportShipmentOrders));
+            if (frm != null)
+            {
+                frm.Activate();
+            }
+            else
+            {
+                Reports.frmReportShipmentOrders f = new Reports.frmReportShipmentOrders();
+                f.MdiParent = this;
+                f.Show();
+            }
         }
 
         private void btnTracingHistory_ItemClick(object sender, ItemClickEventArgs e)
         {
-
+            XtraForm frm = this.CheckExist(typeof(Reports.frmTracingHistory));
+            if (frm != null)
+            {
+                frm.Activate();
+            }
+            else
+            {
+                Reports.frmTracingHistory f = new Reports.frmTracingHistory();
+                f.MdiParent = this;
+                f.Show();
+            }
         }
 
         private void btnInventory_ItemClick(object sender, ItemClickEventArgs e)

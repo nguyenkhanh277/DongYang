@@ -113,6 +113,8 @@
   <ItemGroup>
     <Compile Include="Core\Domain\Product.cs" />
     <Compile Include="Core\Domain\Production.cs" />
+    <Compile Include="Core\Domain\ReportShipmentOrder.cs" />
+    <Compile Include="Core\Domain\ReportWorkOrder.cs" />
     <Compile Include="Core\Domain\ShipmentOrderDetail.cs" />
     <Compile Include="Core\Domain\Inventory.cs" />
     <Compile Include="Core\Domain\WorkOrder.cs" />
@@ -170,6 +172,24 @@
     </Compile>
     <Compile Include="View\Home\frmChangePassword.Designer.cs">
       <DependentUpon>frmChangePassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Reports\frmReportShipmentOrders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Reports\frmReportShipmentOrders.Designer.cs">
+      <DependentUpon>frmReportShipmentOrders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Reports\frmReportWorkOrders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Reports\frmReportWorkOrders.Designer.cs">
+      <DependentUpon>frmReportWorkOrders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Reports\frmTracingHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Reports\frmTracingHistory.Designer.cs">
+      <DependentUpon>frmTracingHistory.cs</DependentUpon>
     </Compile>
     <Compile Include="View\ShipmentOrders\frmShipmentOrders.cs">
       <SubType>Form</SubType>
@@ -276,6 +296,15 @@
     <EmbeddedResource Include="View\Home\frmChangePassword.resx">
       <DependentUpon>frmChangePassword.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\Reports\frmReportShipmentOrders.resx">
+      <DependentUpon>frmReportShipmentOrders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Reports\frmReportWorkOrders.resx">
+      <DependentUpon>frmReportWorkOrders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Reports\frmTracingHistory.resx">
+      <DependentUpon>frmTracingHistory.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\ShipmentOrders\frmShipmentOrders.resx">
       <DependentUpon>frmShipmentOrders.cs</DependentUpon>
     </EmbeddedResource>
@@ -348,8 +377,6 @@
   <ItemGroup>
     <Content Include="icon.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="View\Reports\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

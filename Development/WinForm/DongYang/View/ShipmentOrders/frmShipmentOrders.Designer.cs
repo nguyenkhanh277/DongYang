@@ -46,9 +46,8 @@
             this.PartNameShort = new DevExpress.XtraGrid.Columns.GridColumn();
             this.Quantity = new DevExpress.XtraGrid.Columns.GridColumn();
             this.Status = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.Export = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.repositoryItemButtonEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.repositoryItemCheckEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
+            this.repositoryItemButtonEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             this.dtpToDate = new System.Windows.Forms.DateTimePicker();
@@ -58,8 +57,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvDuLieu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewDuLieu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMemoEdit1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
@@ -176,8 +175,7 @@
             this.PartName,
             this.PartNameShort,
             this.Quantity,
-            this.Status,
-            this.Export});
+            this.Status});
             this.viewDuLieu.DetailHeight = 284;
             this.viewDuLieu.GridControl = this.dgvDuLieu;
             this.viewDuLieu.IndicatorWidth = 40;
@@ -191,7 +189,6 @@
             this.viewDuLieu.OptionsView.ShowDetailButtons = false;
             this.viewDuLieu.OptionsView.ShowGroupPanel = false;
             this.viewDuLieu.RowHeight = 40;
-            this.viewDuLieu.RowCellClick += new DevExpress.XtraGrid.Views.Grid.RowCellClickEventHandler(this.viewDuLieu_RowCellClick);
             this.viewDuLieu.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.viewDuLieu_CustomDrawRowIndicator);
             this.viewDuLieu.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.viewDuLieu_RowCellStyle);
             this.viewDuLieu.KeyDown += new System.Windows.Forms.KeyEventHandler(this.viewDuLieu_KeyDown);
@@ -395,30 +392,12 @@
             this.Status.MinWidth = 75;
             this.Status.Name = "Status";
             // 
-            // Export
+            // repositoryItemCheckEdit1
             // 
-            this.Export.AppearanceCell.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.Export.AppearanceCell.ForeColor = System.Drawing.Color.Blue;
-            this.Export.AppearanceCell.Options.UseFont = true;
-            this.Export.AppearanceCell.Options.UseForeColor = true;
-            this.Export.AppearanceCell.Options.UseTextOptions = true;
-            this.Export.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.Export.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.Export.AppearanceCell.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
-            this.Export.AppearanceHeader.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.Export.AppearanceHeader.Options.UseFont = true;
-            this.Export.AppearanceHeader.Options.UseTextOptions = true;
-            this.Export.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.Export.AppearanceHeader.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
-            this.Export.Caption = "Xuất hàng";
-            this.Export.ColumnEdit = this.repositoryItemMemoEdit1;
-            this.Export.FieldName = "Export";
-            this.Export.MaxWidth = 60;
-            this.Export.MinWidth = 60;
-            this.Export.Name = "Export";
-            this.Export.Visible = true;
-            this.Export.VisibleIndex = 7;
-            this.Export.Width = 60;
+            this.repositoryItemCheckEdit1.AutoHeight = false;
+            this.repositoryItemCheckEdit1.Name = "repositoryItemCheckEdit1";
+            this.repositoryItemCheckEdit1.ValueChecked = 1;
+            this.repositoryItemCheckEdit1.ValueUnchecked = 0;
             // 
             // repositoryItemButtonEdit1
             // 
@@ -427,13 +406,6 @@
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.repositoryItemButtonEdit1.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
             this.repositoryItemButtonEdit1.Name = "repositoryItemButtonEdit1";
-            // 
-            // repositoryItemCheckEdit1
-            // 
-            this.repositoryItemCheckEdit1.AutoHeight = false;
-            this.repositoryItemCheckEdit1.Name = "repositoryItemCheckEdit1";
-            this.repositoryItemCheckEdit1.ValueChecked = 1;
-            this.repositoryItemCheckEdit1.ValueUnchecked = 0;
             // 
             // panelControl1
             // 
@@ -521,8 +493,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvDuLieu)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewDuLieu)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMemoEdit1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
@@ -556,7 +528,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn PartNameShort;
         private DevExpress.XtraGrid.Columns.GridColumn ShipmentOrderNo;
         private DevExpress.XtraGrid.Columns.GridColumn ShipmentOrderDate;
-        private DevExpress.XtraGrid.Columns.GridColumn Export;
         private DevExpress.XtraEditors.PanelControl panelControl2;
         private System.Windows.Forms.DateTimePicker dtpToDate;
         private DevExpress.XtraEditors.LabelControl labelControl1;

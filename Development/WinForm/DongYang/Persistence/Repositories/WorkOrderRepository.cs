@@ -88,5 +88,58 @@ namespace DongYang.Persistence.Repositories
         {
             return Guid.NewGuid().ToString();
         }
+
+        public List<ReportWorkOrder> GetReportWorkOrder(DateTime fromDate, DateTime toDate)
+        {
+            var workOrders = from x in ProjectDataContext.WorkOrders
+                             where x.WorkOrderDate >= fromDate && x.WorkOrderDate <= toDate && x.Status == GlobalConstants.StatusValue.Using
+                             orderby x.WorkOrderDate, x.PartNumber
+                             select new { x };
+
+            var inventorys = from x in ProjectDataContext.Inventorys
+                             join y in ProjectDataContext.WorkOrders on x.WorkOrderId equals y.Id
+                             where y.WorkOrderDate >= fromDate && y.WorkOrderDate <= toDate && x.CompletedStatus == GlobalConstants.CompletedStatusValue.OK
+                             select new { x, y };
+
+            //var shipmentOrderDetails = from x in ProjectDataContext.ShipmentOrderDetails
+            //                           join y in ProjectDataContext.ShipmentOrders on x.ShipmentOrderId equals y.Id
+            //                           where x.ExportedDate >= fromDate && x.ExportedDate <= toDate && x.Status == GlobalConstants.StatusValue.Using
+            //                           select new { x, y };
+
+            List<ReportWorkOrder> reportWorkOrders = new List<ReportWorkOrder>();
+            if (workOrders.Any())
+            {
+                ReportWorkOrder reportWorkOrder;
+                foreach (var item in workOrders)
+                {
+                    reportWorkOrder = new ReportWorkOrder();
+                    reportWorkOrder.WorkOrderDate = item.x.WorkOrderDate.Date;
+                    reportWorkOrder.PartNumber = item.x.PartNumber;
+                    reportWorkOrder.Model = item.x.Model;
+                    reportWorkOrder.PartName = item.x.PartName;
+                    reportWorkOrder.PartNameShort = item.x.PartNameShort;
+                    reportWorkOrder.QuantityOrder = item.x.Quantity;
+                    if (inventorys.Any())
+                    {
+                        reportWorkOrder.QuantityImport = inventorys.Where(_ => _.y.PartNumber.Equals(item.x.PartNumber)).Select(_ => _.x.QuantityActual).Sum();
+                    }
+                    else
+                    {
+                        reportWorkOrder.QuantityImport = 0;
+                    }
+                    reportWorkOrder.QuantityRemain = reportWorkOrder.QuantityOrder - reportWorkOrder.QuantityImport;
+                    //if (shipmentOrderDetails.Any())
+                    //{
+                    //    reportWorkOrder.QuantityExport = shipmentOrderDetails.Where(_ => _.y.PartNumber.Equals(item.x.PartNumber)).Select(_ => _.x.QuantityActual).Sum();
+                    //}
+                    //else
+                    //{
+                    //    reportWorkOrder.QuantityExport = 0;
+                    //}
+                    reportWorkOrders.Add(reportWorkOrder);
+                }
+            }
+            return reportWorkOrders;
+        }
     }
 }

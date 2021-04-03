@@ -88,5 +88,45 @@ namespace DongYang.Persistence.Repositories
         {
             return Guid.NewGuid().ToString();
         }
+
+        public List<ReportShipmentOrder> GetReportShipmentOrder(DateTime fromDate, DateTime toDate)
+        {
+            var shipmentOrders = from x in ProjectDataContext.ShipmentOrders
+                                 where x.ShipmentOrderDate >= fromDate && x.ShipmentOrderDate <= toDate && x.Status == GlobalConstants.StatusValue.Using
+                                 orderby x.ShipmentOrderDate, x.PartNumber
+                                 select new { x };
+
+            var shipmentOrderDetails = from x in ProjectDataContext.ShipmentOrders
+                                       join y in ProjectDataContext.ShipmentOrderDetails on x.Id equals y.ShipmentOrderId
+                                       where x.ShipmentOrderDate >= fromDate && x.ShipmentOrderDate <= toDate && x.Status == GlobalConstants.StatusValue.Using && y.Status == GlobalConstants.StatusValue.Using
+                                       select new { x, y };
+
+            List<ReportShipmentOrder> reportShipmentOrders = new List<ReportShipmentOrder>();
+            if (shipmentOrders.Any())
+            {
+                ReportShipmentOrder reportShipmentOrder;
+                foreach (var item in shipmentOrders)
+                {
+                    reportShipmentOrder = new ReportShipmentOrder();
+                    reportShipmentOrder.ShipmentOrderDate = item.x.ShipmentOrderDate.Date;
+                    reportShipmentOrder.PartNumber = item.x.PartNumber;
+                    reportShipmentOrder.Model = item.x.Model;
+                    reportShipmentOrder.PartName = item.x.PartName;
+                    reportShipmentOrder.PartNameShort = item.x.PartNameShort;
+                    reportShipmentOrder.QuantityOrder = item.x.Quantity;
+                    if (shipmentOrderDetails.Any())
+                    {
+                        reportShipmentOrder.QuantityExport = shipmentOrderDetails.Where(_ => _.x.PartNumber.Equals(item.x.PartNumber)).Select(_ => _.y.QuantityActual).Sum();
+                    }
+                    else
+                    {
+                        reportShipmentOrder.QuantityExport = 0;
+                    }
+                    reportShipmentOrder.QuantityRemain = reportShipmentOrder.QuantityOrder - reportShipmentOrder.QuantityExport;
+                    reportShipmentOrders.Add(reportShipmentOrder);
+                }
+            }
+            return reportShipmentOrders;
+        }
     }
 }

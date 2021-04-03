@@ -72,7 +72,7 @@ namespace DongYang.View.ShipmentOrders
             _shipmentOrderRepository = new ShipmentOrderRepository(_projectDataContext);
             DateTime fromDate = DateTime.Parse(dtpFromDate.Value.ToString("yyyy-MM-dd 00:00:00"));
             DateTime toDate = DateTime.Parse(dtpToDate.Value.ToString("yyyy-MM-dd 23:59:59"));
-            dgvDuLieu.DataSource = _shipmentOrderRepository.GetAll().Where(_ => _.ShipmentOrderDate >= fromDate && _.ShipmentOrderDate <= toDate).OrderBy(_ => _.ShipmentOrderDate);
+            dgvDuLieu.DataSource = _shipmentOrderRepository.GetAll().Where(_ => _.ShipmentOrderDate >= fromDate && _.ShipmentOrderDate <= toDate).OrderBy(_ => _.ShipmentOrderDate).ThenBy(_ => _.PartNumber);
             Control();
         }
 
@@ -175,14 +175,6 @@ namespace DongYang.View.ShipmentOrders
                     e.Appearance.ForeColor = Color.Red;
                     e.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, FontStyle.Strikeout);
                 }
-            }
-        }
-
-        private void viewDuLieu_RowCellClick(object sender, DevExpress.XtraGrid.Views.Grid.RowCellClickEventArgs e)
-        {
-            if (e.RowHandle >= 0 && e.Column.Name == "Export")
-            {
-                
             }
         }
     }

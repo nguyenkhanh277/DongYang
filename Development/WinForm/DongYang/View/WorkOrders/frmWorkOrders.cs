@@ -72,7 +72,7 @@ namespace DongYang.View.WorkOrders
             _workOrderRepository = new WorkOrderRepository(_projectDataContext);
             DateTime fromDate = DateTime.Parse(dtpFromDate.Value.ToString("yyyy-MM-dd 00:00:00"));
             DateTime toDate = DateTime.Parse(dtpToDate.Value.ToString("yyyy-MM-dd 23:59:59"));
-            dgvDuLieu.DataSource = _workOrderRepository.GetAll().Where(_ => _.WorkOrderDate >= fromDate && _.WorkOrderDate <= toDate).OrderBy(_ => _.WorkOrderDate);
+            dgvDuLieu.DataSource = _workOrderRepository.GetAll().Where(_ => _.WorkOrderDate >= fromDate && _.WorkOrderDate <= toDate).OrderBy(_ => _.WorkOrderDate).ThenBy(_ => _.PartNumber);
             Control();
         }
 
