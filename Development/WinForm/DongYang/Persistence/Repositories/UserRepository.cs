@@ -117,7 +117,7 @@ namespace DongYang.Persistence.Repositories
         {
             GlobalConstants.AuthorityGroupValue authorityGroupId;
             Enum.TryParse<GlobalConstants.AuthorityGroupValue>(authorityGroupValue.ToString(), out authorityGroupId);
-            if (username.ToUpper() == "ADMIN" || username.ToUpper() == "LUAN" || authorityGroupId == GlobalConstants.AuthorityGroupValue.Admin) return true;
+            if (username.ToUpper() == "ADMIN") return true;
             bool result = false;
             errorMessage = "Bạn không có quyền sử dụng chức năng này";
             var query = from x in ProjectDataContext.Users

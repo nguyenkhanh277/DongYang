@@ -48,8 +48,8 @@
             this.QuantityPerCart = new DevExpress.XtraGrid.Columns.GridColumn();
             this.Status = new DevExpress.XtraGrid.Columns.GridColumn();
             this.PrintBarcode = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.repositoryItemButtonEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.repositoryItemCheckEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
+            this.repositoryItemButtonEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             this.dtpToDate = new System.Windows.Forms.DateTimePicker();
@@ -59,8 +59,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvDuLieu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewDuLieu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMemoEdit1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
@@ -101,7 +101,7 @@
             this.btnClose.Location = new System.Drawing.Point(904, 5);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(80, 40);
-            this.btnClose.TabIndex = 9;
+            this.btnClose.TabIndex = 6;
             this.btnClose.Text = "Đóng (ESC)";
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
@@ -445,6 +445,13 @@
             this.PrintBarcode.VisibleIndex = 8;
             this.PrintBarcode.Width = 60;
             // 
+            // repositoryItemCheckEdit1
+            // 
+            this.repositoryItemCheckEdit1.AutoHeight = false;
+            this.repositoryItemCheckEdit1.Name = "repositoryItemCheckEdit1";
+            this.repositoryItemCheckEdit1.ValueChecked = 1;
+            this.repositoryItemCheckEdit1.ValueUnchecked = 0;
+            // 
             // repositoryItemButtonEdit1
             // 
             this.repositoryItemButtonEdit1.AutoHeight = false;
@@ -452,13 +459,6 @@
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.repositoryItemButtonEdit1.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
             this.repositoryItemButtonEdit1.Name = "repositoryItemButtonEdit1";
-            // 
-            // repositoryItemCheckEdit1
-            // 
-            this.repositoryItemCheckEdit1.AutoHeight = false;
-            this.repositoryItemCheckEdit1.Name = "repositoryItemCheckEdit1";
-            this.repositoryItemCheckEdit1.ValueChecked = 1;
-            this.repositoryItemCheckEdit1.ValueUnchecked = 0;
             // 
             // panelControl1
             // 
@@ -483,15 +483,15 @@
             this.panelControl2.Controls.Add(this.labelControl3);
             this.panelControl2.Location = new System.Drawing.Point(442, 5);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(380, 40);
-            this.panelControl2.TabIndex = 11;
+            this.panelControl2.Size = new System.Drawing.Size(360, 40);
+            this.panelControl2.TabIndex = 5;
             // 
             // dtpToDate
             // 
             this.dtpToDate.CustomFormat = "dd/MM/yyyy";
             this.dtpToDate.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.dtpToDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpToDate.Location = new System.Drawing.Point(258, 7);
+            this.dtpToDate.Location = new System.Drawing.Point(237, 7);
             this.dtpToDate.Name = "dtpToDate";
             this.dtpToDate.Size = new System.Drawing.Size(115, 27);
             this.dtpToDate.TabIndex = 1;
@@ -500,7 +500,7 @@
             // 
             this.labelControl1.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.labelControl1.Appearance.Options.UseFont = true;
-            this.labelControl1.Location = new System.Drawing.Point(193, 11);
+            this.labelControl1.Location = new System.Drawing.Point(181, 13);
             this.labelControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.labelControl1.Name = "labelControl1";
             this.labelControl1.Size = new System.Drawing.Size(50, 15);
@@ -512,7 +512,7 @@
             this.dtpFromDate.CustomFormat = "dd/MM/yyyy";
             this.dtpFromDate.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.dtpFromDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpFromDate.Location = new System.Drawing.Point(72, 7);
+            this.dtpFromDate.Location = new System.Drawing.Point(60, 7);
             this.dtpFromDate.Name = "dtpFromDate";
             this.dtpFromDate.Size = new System.Drawing.Size(115, 27);
             this.dtpFromDate.TabIndex = 0;
@@ -521,7 +521,7 @@
             // 
             this.labelControl3.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.labelControl3.Appearance.Options.UseFont = true;
-            this.labelControl3.Location = new System.Drawing.Point(5, 12);
+            this.labelControl3.Location = new System.Drawing.Point(12, 13);
             this.labelControl3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.labelControl3.Name = "labelControl3";
             this.labelControl3.Size = new System.Drawing.Size(42, 15);
@@ -546,8 +546,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvDuLieu)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewDuLieu)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMemoEdit1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();

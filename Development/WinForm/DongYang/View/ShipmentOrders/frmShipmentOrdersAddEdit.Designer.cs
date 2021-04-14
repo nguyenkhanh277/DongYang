@@ -35,7 +35,7 @@
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             this.btnProductAdd = new DevExpress.XtraEditors.SimpleButton();
-            this.cbbPartNumber = new System.Windows.Forms.ComboBox();
+            this.cbbProduct = new System.Windows.Forms.ComboBox();
             this.dtpShipmentOrderDate = new System.Windows.Forms.DateTimePicker();
             this.txtModel = new DevExpress.XtraEditors.TextEdit();
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
@@ -124,18 +124,18 @@
             this.btnProductAdd.TabIndex = 6;
             this.btnProductAdd.Click += new System.EventHandler(this.btnProductAdd_Click);
             // 
-            // cbbPartNumber
+            // cbbProduct
             // 
-            this.cbbPartNumber.DisplayMember = "PartNumber";
-            this.cbbPartNumber.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbbPartNumber.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.cbbPartNumber.FormattingEnabled = true;
-            this.cbbPartNumber.Location = new System.Drawing.Point(45, 156);
-            this.cbbPartNumber.Name = "cbbPartNumber";
-            this.cbbPartNumber.Size = new System.Drawing.Size(266, 29);
-            this.cbbPartNumber.TabIndex = 2;
-            this.cbbPartNumber.ValueMember = "Datas";
-            this.cbbPartNumber.SelectedValueChanged += new System.EventHandler(this.cbbPartNumber_SelectedValueChanged);
+            this.cbbProduct.DisplayMember = "PartNumber";
+            this.cbbProduct.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbProduct.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.cbbProduct.FormattingEnabled = true;
+            this.cbbProduct.Location = new System.Drawing.Point(45, 156);
+            this.cbbProduct.Name = "cbbProduct";
+            this.cbbProduct.Size = new System.Drawing.Size(266, 29);
+            this.cbbProduct.TabIndex = 2;
+            this.cbbProduct.ValueMember = "Datas";
+            this.cbbProduct.SelectedValueChanged += new System.EventHandler(this.cbbProduct_SelectedValueChanged);
             // 
             // dtpShipmentOrderDate
             // 
@@ -289,7 +289,7 @@
             this.Controls.Add(this.labelControl5);
             this.Controls.Add(this.txtModel);
             this.Controls.Add(this.labelControl4);
-            this.Controls.Add(this.cbbPartNumber);
+            this.Controls.Add(this.cbbProduct);
             this.Controls.Add(this.dtpShipmentOrderDate);
             this.Controls.Add(this.btnProductAdd);
             this.Controls.Add(this.labelControl3);
@@ -323,7 +323,7 @@
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private DevExpress.XtraEditors.LabelControl labelControl3;
         private DevExpress.XtraEditors.SimpleButton btnProductAdd;
-        private System.Windows.Forms.ComboBox cbbPartNumber;
+        private System.Windows.Forms.ComboBox cbbProduct;
         private System.Windows.Forms.DateTimePicker dtpShipmentOrderDate;
         private DevExpress.XtraEditors.TextEdit txtModel;
         private DevExpress.XtraEditors.LabelControl labelControl4;

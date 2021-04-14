@@ -37,8 +37,8 @@
             this.repositoryItemMemoEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
             this.Barcode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.ScanDate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.ProductionStatus = new DevExpress.XtraGrid.Columns.GridColumn();
             this.Action = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.ProductionStatus = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemCheckEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.repositoryItemButtonEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
@@ -65,7 +65,7 @@
             this.btnExcel.Location = new System.Drawing.Point(5, 5);
             this.btnExcel.Name = "btnExcel";
             this.btnExcel.Size = new System.Drawing.Size(80, 40);
-            this.btnExcel.TabIndex = 3;
+            this.btnExcel.TabIndex = 0;
             this.btnExcel.Text = "Excel (F4)";
             this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
             // 
@@ -78,7 +78,7 @@
             this.btnRefresh.Location = new System.Drawing.Point(91, 5);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(80, 40);
-            this.btnRefresh.TabIndex = 4;
+            this.btnRefresh.TabIndex = 1;
             this.btnRefresh.Text = "Lọc (F5)";
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
@@ -92,7 +92,7 @@
             this.btnClose.Location = new System.Drawing.Point(904, 5);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(80, 40);
-            this.btnClose.TabIndex = 9;
+            this.btnClose.TabIndex = 3;
             this.btnClose.Text = "Đóng (ESC)";
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
@@ -211,29 +211,6 @@
             this.ScanDate.VisibleIndex = 1;
             this.ScanDate.Width = 150;
             // 
-            // ProductionStatus
-            // 
-            this.ProductionStatus.AppearanceCell.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.ProductionStatus.AppearanceCell.Options.UseFont = true;
-            this.ProductionStatus.AppearanceCell.Options.UseTextOptions = true;
-            this.ProductionStatus.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.ProductionStatus.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            this.ProductionStatus.AppearanceCell.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
-            this.ProductionStatus.AppearanceHeader.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.ProductionStatus.AppearanceHeader.Options.UseFont = true;
-            this.ProductionStatus.AppearanceHeader.Options.UseTextOptions = true;
-            this.ProductionStatus.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.ProductionStatus.AppearanceHeader.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
-            this.ProductionStatus.Caption = "Kết quả";
-            this.ProductionStatus.ColumnEdit = this.repositoryItemMemoEdit1;
-            this.ProductionStatus.FieldName = "ProductionStatus";
-            this.ProductionStatus.MaxWidth = 150;
-            this.ProductionStatus.MinWidth = 150;
-            this.ProductionStatus.Name = "ProductionStatus";
-            this.ProductionStatus.Visible = true;
-            this.ProductionStatus.VisibleIndex = 3;
-            this.ProductionStatus.Width = 150;
-            // 
             // Action
             // 
             this.Action.AppearanceCell.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -256,6 +233,29 @@
             this.Action.Visible = true;
             this.Action.VisibleIndex = 2;
             this.Action.Width = 150;
+            // 
+            // ProductionStatus
+            // 
+            this.ProductionStatus.AppearanceCell.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.ProductionStatus.AppearanceCell.Options.UseFont = true;
+            this.ProductionStatus.AppearanceCell.Options.UseTextOptions = true;
+            this.ProductionStatus.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.ProductionStatus.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.ProductionStatus.AppearanceCell.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
+            this.ProductionStatus.AppearanceHeader.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.ProductionStatus.AppearanceHeader.Options.UseFont = true;
+            this.ProductionStatus.AppearanceHeader.Options.UseTextOptions = true;
+            this.ProductionStatus.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.ProductionStatus.AppearanceHeader.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
+            this.ProductionStatus.Caption = "Kết quả";
+            this.ProductionStatus.ColumnEdit = this.repositoryItemMemoEdit1;
+            this.ProductionStatus.FieldName = "ProductionStatus";
+            this.ProductionStatus.MaxWidth = 150;
+            this.ProductionStatus.MinWidth = 150;
+            this.ProductionStatus.Name = "ProductionStatus";
+            this.ProductionStatus.Visible = true;
+            this.ProductionStatus.VisibleIndex = 3;
+            this.ProductionStatus.Width = 150;
             // 
             // repositoryItemCheckEdit1
             // 
@@ -292,15 +292,15 @@
             this.panelControl2.Controls.Add(this.labelControl3);
             this.panelControl2.Location = new System.Drawing.Point(177, 5);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(380, 40);
-            this.panelControl2.TabIndex = 11;
+            this.panelControl2.Size = new System.Drawing.Size(360, 40);
+            this.panelControl2.TabIndex = 2;
             // 
             // dtpToDate
             // 
             this.dtpToDate.CustomFormat = "dd/MM/yyyy";
             this.dtpToDate.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.dtpToDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpToDate.Location = new System.Drawing.Point(258, 7);
+            this.dtpToDate.Location = new System.Drawing.Point(237, 7);
             this.dtpToDate.Name = "dtpToDate";
             this.dtpToDate.Size = new System.Drawing.Size(115, 27);
             this.dtpToDate.TabIndex = 1;
@@ -309,7 +309,7 @@
             // 
             this.labelControl1.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.labelControl1.Appearance.Options.UseFont = true;
-            this.labelControl1.Location = new System.Drawing.Point(193, 11);
+            this.labelControl1.Location = new System.Drawing.Point(181, 13);
             this.labelControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.labelControl1.Name = "labelControl1";
             this.labelControl1.Size = new System.Drawing.Size(50, 15);
@@ -321,7 +321,7 @@
             this.dtpFromDate.CustomFormat = "dd/MM/yyyy";
             this.dtpFromDate.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.dtpFromDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpFromDate.Location = new System.Drawing.Point(72, 7);
+            this.dtpFromDate.Location = new System.Drawing.Point(60, 7);
             this.dtpFromDate.Name = "dtpFromDate";
             this.dtpFromDate.Size = new System.Drawing.Size(115, 27);
             this.dtpFromDate.TabIndex = 0;
@@ -330,7 +330,7 @@
             // 
             this.labelControl3.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.labelControl3.Appearance.Options.UseFont = true;
-            this.labelControl3.Location = new System.Drawing.Point(5, 12);
+            this.labelControl3.Location = new System.Drawing.Point(12, 13);
             this.labelControl3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.labelControl3.Name = "labelControl3";
             this.labelControl3.Size = new System.Drawing.Size(42, 15);

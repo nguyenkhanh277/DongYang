@@ -67,23 +67,23 @@ namespace DongYang.View.WorkOrders
 
         private void LoadProductData()
         {
-            cbbPartNumber.DataSource = _productRepository.GetData().OrderBy(_ => _.PartNumber).ToList();
-            cbbPartNumber.SelectedIndex = 0;
+            cbbProduct.DataSource = _productRepository.GetData().OrderBy(_ => _.PartNumber).ToList();
+            cbbProduct.SelectedIndex = 0;
         }
 
-        private void cbbPartNumber_SelectedValueChanged(object sender, EventArgs e)
+        private void cbbProduct_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (_isLoadedCombobox && cbbPartNumber.SelectedValue != null && !String.IsNullOrEmpty(cbbPartNumber.Text.Trim()))
+            if (_isLoadedCombobox && cbbProduct.SelectedValue != null && !String.IsNullOrEmpty(cbbProduct.Text.Trim()))
             {
-                txtModel.Text = cbbPartNumber.SelectedValue.ToString().Split('|')[0];
-                txtPartName.Text = cbbPartNumber.SelectedValue.ToString().Split('|')[1];
-                txtPartNameShort.Text = cbbPartNumber.SelectedValue.ToString().Split('|')[2];
+                txtModel.Text = cbbProduct.SelectedValue.ToString().Split('|')[0];
+                txtPartName.Text = cbbProduct.SelectedValue.ToString().Split('|')[1];
+                txtPartNameShort.Text = cbbProduct.SelectedValue.ToString().Split('|')[2];
             }
         }
 
         private void Clear()
         {
-            cbbPartNumber.SelectedIndex = -1;
+            cbbProduct.SelectedIndex = -1;
             txtModel.Text = "";
             txtPartName.Text = "";
             txtPartNameShort.Text = "";
@@ -97,7 +97,7 @@ namespace DongYang.View.WorkOrders
             WorkOrder workOrder = _workOrderRepository.Get(_id);
             txtWorkOrderNo.Text = workOrder.WorkOrderNo;
             dtpWorkOrderDate.Value = workOrder.WorkOrderDate;
-            cbbPartNumber.Text = workOrder.PartNumber;
+            cbbProduct.Text = workOrder.PartNumber;
             txtModel.Text = workOrder.Model;
             txtPartName.Text = workOrder.PartName;
             txtPartNameShort.Text = workOrder.PartNameShort;
@@ -106,10 +106,10 @@ namespace DongYang.View.WorkOrders
 
         private bool CheckData()
         {
-            if (cbbPartNumber.SelectedValue == null || String.IsNullOrEmpty(cbbPartNumber.Text.Trim()))
+            if (cbbProduct.SelectedValue == null || String.IsNullOrEmpty(cbbProduct.Text.Trim()))
             {
                 XtraMessageBox.Show(LanguageTranslate.ChangeLanguageText("Chưa điền dữ liệu"), LanguageTranslate.ChangeLanguageText("Thông báo"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                cbbPartNumber.DroppedDown = true;
+                cbbProduct.DroppedDown = true;
                 return false;
             }
             else if (txtQuantity.Value == 0)
@@ -142,7 +142,7 @@ namespace DongYang.View.WorkOrders
                 workOrder.Id = _id;
                 workOrder.WorkOrderNo = txtWorkOrderNo.Text.Trim();
                 workOrder.WorkOrderDate = dtpWorkOrderDate.Value;
-                workOrder.PartNumber = cbbPartNumber.Text.Trim();
+                workOrder.PartNumber = cbbProduct.Text.Trim();
                 workOrder.Model = txtModel.Text.Trim();
                 workOrder.PartName = txtPartName.Text.Trim();
                 workOrder.PartNameShort = txtPartNameShort.Text.Trim();
@@ -189,9 +189,9 @@ namespace DongYang.View.WorkOrders
             {
                 _isLoadedCombobox = false;
                 LoadProductData();
-                cbbPartNumber.Text = (string)frm.Tag;
+                cbbProduct.SelectedValue = (string)frm.Tag;
                 _isLoadedCombobox = true;
-                cbbPartNumber_SelectedValueChanged(null, null);
+                cbbProduct_SelectedValueChanged(null, null);
             }
         }
     }

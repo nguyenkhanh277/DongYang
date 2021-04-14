@@ -380,7 +380,7 @@
             this.panelControl2.Controls.Add(this.labelControl3);
             this.panelControl2.Location = new System.Drawing.Point(177, 5);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(380, 40);
+            this.panelControl2.Size = new System.Drawing.Size(360, 40);
             this.panelControl2.TabIndex = 2;
             // 
             // dtpToDate
@@ -388,19 +388,19 @@
             this.dtpToDate.CustomFormat = "dd/MM/yyyy";
             this.dtpToDate.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.dtpToDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpToDate.Location = new System.Drawing.Point(258, 7);
+            this.dtpToDate.Location = new System.Drawing.Point(237, 7);
             this.dtpToDate.Name = "dtpToDate";
             this.dtpToDate.Size = new System.Drawing.Size(115, 27);
             this.dtpToDate.TabIndex = 1;
             // 
             // labelControl1
             // 
-            this.labelControl1.Appearance.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.labelControl1.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.labelControl1.Appearance.Options.UseFont = true;
-            this.labelControl1.Location = new System.Drawing.Point(193, 11);
+            this.labelControl1.Location = new System.Drawing.Point(181, 13);
             this.labelControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(59, 19);
+            this.labelControl1.Size = new System.Drawing.Size(50, 15);
             this.labelControl1.TabIndex = 6;
             this.labelControl1.Text = "Đến ngày";
             // 
@@ -409,19 +409,19 @@
             this.dtpFromDate.CustomFormat = "dd/MM/yyyy";
             this.dtpFromDate.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.dtpFromDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpFromDate.Location = new System.Drawing.Point(72, 7);
+            this.dtpFromDate.Location = new System.Drawing.Point(60, 7);
             this.dtpFromDate.Name = "dtpFromDate";
             this.dtpFromDate.Size = new System.Drawing.Size(115, 27);
             this.dtpFromDate.TabIndex = 0;
             // 
             // labelControl3
             // 
-            this.labelControl3.Appearance.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.labelControl3.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.labelControl3.Appearance.Options.UseFont = true;
-            this.labelControl3.Location = new System.Drawing.Point(5, 12);
+            this.labelControl3.Location = new System.Drawing.Point(12, 13);
             this.labelControl3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.labelControl3.Name = "labelControl3";
-            this.labelControl3.Size = new System.Drawing.Size(49, 19);
+            this.labelControl3.Size = new System.Drawing.Size(42, 15);
             this.labelControl3.TabIndex = 4;
             this.labelControl3.Text = "Từ ngày";
             // 
@@ -469,13 +469,13 @@
         private DevExpress.XtraGrid.Columns.GridColumn QuantityOrder;
         private DevExpress.XtraGrid.Columns.GridColumn QuantityImport;
         private DevExpress.XtraGrid.Columns.GridColumn QuantityExport;
+        private DevExpress.XtraGrid.Columns.GridColumn PartNumber;
+        private DevExpress.XtraGrid.Columns.GridColumn Model;
+        private DevExpress.XtraGrid.Columns.GridColumn PartName;
         private DevExpress.XtraEditors.PanelControl panelControl2;
         private System.Windows.Forms.DateTimePicker dtpToDate;
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private System.Windows.Forms.DateTimePicker dtpFromDate;
         private DevExpress.XtraEditors.LabelControl labelControl3;
-        private DevExpress.XtraGrid.Columns.GridColumn PartNumber;
-        private DevExpress.XtraGrid.Columns.GridColumn Model;
-        private DevExpress.XtraGrid.Columns.GridColumn PartName;
     }
 }

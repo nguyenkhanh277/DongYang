@@ -153,7 +153,7 @@ namespace DongYang.View.Products
                     {
                         if (_quickAdd)
                         {
-                            this.Tag = txtPartName.Text.Trim();
+                            this.Tag = txtPartNumber.Text.Trim();
                             DialogResult = DialogResult.OK;
                             Close();
                         }
