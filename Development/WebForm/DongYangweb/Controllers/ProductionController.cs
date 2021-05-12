@@ -46,6 +46,34 @@ namespace DongYangweb.Controllers
             return View();
         }
 
+        [ActionName("CheckBarcode")]
+        public ActionResult CheckBarcode(string barcode, string actionStatus)
+        {
+            try
+            {
+                _connectionManagement = new ConnectionManagement();
+                _dbBusiness = new DbBusiness();
+                _barcode = barcode;
+                _productionStatus = "";
+                _actionStatus = actionStatus;
+                _result = "NG";
+                _description = "";
+                if (CheckData())
+                {
+                    if (VerifyData())
+                    {
+                        _result = "OK";
+                    }
+                }
+            }
+            catch
+            {
+                _result = "NG";
+                _description = "Không thể kết nối với máy chủ";
+            }
+            return Content(_result + "#" + _description);
+        }
+
         [ActionName("VerifyProduct")]
         public ActionResult VerifyProduct(string username, string barcode, string productionStatus, string actionStatus)
         {

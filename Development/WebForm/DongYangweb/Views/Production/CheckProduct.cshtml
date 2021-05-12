@@ -113,7 +113,9 @@
         document.getElementById('btnProductionStatus1').disabled = false;
         document.getElementById('btnProductionStatus2').disabled = false;
         document.getElementById('btnProductionStatus3').disabled = false;
-        $('.btn').removeClass('btn-success');
+        $('#btnProductionStatus1').removeClass('btn-success');
+        $('#btnProductionStatus2').removeClass('btn-danger');
+        $('#btnProductionStatus3').removeClass('btn-warning');
         document.getElementById('lblDanhGia').style.backgroundColor = 'White';
         document.getElementById('lblResult').innerText = '';
         document.getElementById('txtMessage').value = '';
@@ -135,7 +137,9 @@
         document.getElementById('btnProductionStatus1').disabled = false;
         document.getElementById('btnProductionStatus2').disabled = false;
         document.getElementById('btnProductionStatus3').disabled = false;
-        $('.btn').removeClass('btn-success');
+        $('#btnProductionStatus1').removeClass('btn-success');
+        $('#btnProductionStatus2').removeClass('btn-danger');
+        $('#btnProductionStatus3').removeClass('btn-warning');
         document.getElementById('lblDanhGia').style.backgroundColor = 'White';
         document.getElementById('lblResult').innerText = '';
         document.getElementById('txtMessage').value = '';
@@ -166,12 +170,39 @@
             document.getElementById('txtBarcode').select();
             return false;
         }
-        else if (productionStatus == '') {
-            document.getElementById('lblDanhGia').style.backgroundColor = 'gold';
+        var barcode = $.trim(document.getElementById('txtBarcode').value);
+        //Xác minh người dùng
+        $.ajax({
+            type: "GET",
+            cache: false,
+            async: false,
+            url: '@Url.Action("CheckBarcode", "Production")?barcode=' + barcode + '&actionStatus=1',
+            dataType: "text",
+            success: CheckBarcodeAfter,
+            error: AjaxErrorCheckBarcodeAfter
+        });
+        return false;
+    }
+    //Xử lý giao diện sau khi check barcode
+    var CheckBarcodeAfter = function (data) {
+        var parameter = data.split("#");
+        var result = parameter[0];
+        var message = parameter[1];
+        if (result == 'OK') {
+            if (productionStatus == '') {
+                document.getElementById('lblDanhGia').style.backgroundColor = 'gold';
+                return false;
+            }
             document.getElementById('txtMessage').value = 'Hãy đánh giá sản phẩm';
+            return;
+        } else {
+            Clear();
+            document.getElementById('txtMessage').value = message;
             return false;
         }
-        return true;
+    }
+    //Lỗi khi check barcode
+    var AjaxErrorCheckBarcodeAfter = function () {
     }
     //Xử lý trước khi Đánh giá sản phẩm
     function ProductionBefore() {
@@ -240,24 +271,24 @@
         $('#btnProductionStatus1').on("click", function (e) {
             productionStatus = '1';
             $('#btnProductionStatus1').addClass('btn-success');
-            $('#btnProductionStatus2').removeClass('btn-success');
-            $('#btnProductionStatus3').removeClass('btn-success');
+            $('#btnProductionStatus2').removeClass('btn-danger');
+            $('#btnProductionStatus3').removeClass('btn-warning');
             ProductionBefore();
         });
 
         $('#btnProductionStatus2').on("click", function (e) {
             productionStatus = '2';
-            $('#btnProductionStatus2').addClass('btn-success');
+            $('#btnProductionStatus2').addClass('btn-danger');
             $('#btnProductionStatus1').removeClass('btn-success');
-            $('#btnProductionStatus3').removeClass('btn-success');
+            $('#btnProductionStatus3').removeClass('btn-warning');
             ProductionBefore();
         });
 
         $('#btnProductionStatus3').on("click", function (e) {
             productionStatus = '3';
-            $('#btnProductionStatus3').addClass('btn-success');
+            $('#btnProductionStatus3').addClass('btn-warning');
             $('#btnProductionStatus1').removeClass('btn-success');
-            $('#btnProductionStatus2').removeClass('btn-success');
+            $('#btnProductionStatus2').removeClass('btn-danger');
             ProductionBefore();
         });
     });
