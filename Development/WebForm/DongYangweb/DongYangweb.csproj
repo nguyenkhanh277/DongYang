@@ -206,6 +206,7 @@
     <Content Include="Views\Production\ApproveProduct.cshtml" />
     <Content Include="Views\Production\CheckProduct.cshtml" />
     <Content Include="Views\Production\ImportProduct.cshtml" />
+    <Content Include="Views\Production\CheckExportProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

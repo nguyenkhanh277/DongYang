@@ -21,6 +21,7 @@
             <input type="button" id="btnCheckProduct" class="Button" value="Kiểm tra sản phẩm" onclick="CheckProduct()">
             <input type="button" id="btnApproveProduct" class="Button" value="Đánh giá sản phẩm" onclick="ApproveProduct()">
             <input type="button" id="btnImportProduct" class="Button" value="Nhập kho sản phẩm" onclick="ImportProduct()">
+            <input type="button" id="btnCheckExportProduct" class="Button" value="Đánh giá OQC sản phẩm" onclick="CheckExportProduct()">
             @*</div>*@
             @*<div style="display: block;" id="page2">*@
             @*</div>*@
@@ -64,9 +65,12 @@
     };
     var ApproveProduct = function () {
         window.location = '@Url.Action("ApproveProduct", "Production")';
-    };
+    }; 
     var ImportProduct = function () {
         window.location = '@Url.Action("ImportProduct", "Production")';
+    };
+    var CheckExportProduct = function () {
+        window.location = '@Url.Action("CheckExportProduct", "Production")';
     };
 </script>
 
