@@ -210,9 +210,13 @@ namespace DongYangweb.Controllers
             }
             else if (_actionStatus == "4")//Đánh giá OQC sản phẩm
             {
-                //Chỉ đánh giá khi sản phẩm vừa nhập kho sản phẩm
-                if (production.Rows.Count > 0
-                    && production.Rows[0]["Action"].ToString() == "3"//Vừa nhập kho sản phẩm
+                //Chỉ đánh giá khi sản phẩm vừa nhập kho sản phẩm hoặc vừa đánh giá OQA OK
+                if (production.Rows.Count > 0 &&
+                    (
+                        production.Rows[0]["Action"].ToString() == "3"//Vừa nhập kho sản phẩm
+                        ||//Hoặc
+                        production.Rows[0]["Action"].ToString() == "5"//Vừa đánh giá OQA sản phẩm
+                    )
                     && production.Rows[0]["ProductionStatus"].ToString() == "1")//Sản phẩm OK
                 {
                     result = true;
@@ -225,7 +229,7 @@ namespace DongYangweb.Controllers
                 else
                 {
                     _description += "Kiểm tra thất bại." + Environment.NewLine;
-                    _description += "Chỉ đánh giá OQC sản phẩm khi sản phẩm vừa được công nhân nhập kho." + Environment.NewLine;
+                    _description += "Chỉ đánh giá OQC sản phẩm khi sản phẩm vừa được công nhân nhập kho hoặc vừa đánh giá OQA OK." + Environment.NewLine;
                 }
             }
             else if (_actionStatus == "5")//Đánh giá OQA sản phẩm
