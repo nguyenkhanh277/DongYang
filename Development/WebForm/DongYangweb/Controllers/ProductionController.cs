@@ -208,7 +208,6 @@ namespace DongYangweb.Controllers
                     _description += "Chỉ nhập kho khi sản phẩm vừa được QC kiểm tra OK hoặc vừa được QA đánh giá OK." + Environment.NewLine;
                 }
             }
-
             else if (_actionStatus == "4")//Đánh giá OQC sản phẩm
             {
                 //Chỉ đánh giá khi sản phẩm vừa nhập kho sản phẩm
@@ -227,6 +226,30 @@ namespace DongYangweb.Controllers
                 {
                     _description += "Kiểm tra thất bại." + Environment.NewLine;
                     _description += "Chỉ đánh giá OQC sản phẩm khi sản phẩm vừa được công nhân nhập kho." + Environment.NewLine;
+                }
+            }
+            else if (_actionStatus == "5")//Đánh giá OQA sản phẩm
+            {
+                //Chỉ đánh giá khi sản phẩm vừa đánh giá OQC sản phẩm NG
+                if (production.Rows.Count > 0
+                    && production.Rows[0]["Action"].ToString() == "4"//Vừa đánh giá OQC sản phẩm
+                    && production.Rows[0]["ProductionStatus"].ToString() == "2")//Sản phẩm NG
+                {
+                    if (_productionStatus == "2")//Đánh giá OQA NG
+                    {
+                        _completedStatus = "2";//Scrap
+                    }
+                    result = true;
+                }
+                else if (production.Rows.Count == 0)
+                {
+                    _description += "Kiểm tra thất bại." + Environment.NewLine;
+                    _description += "Sản phẩm này chưa được công nhân xác nhận." + Environment.NewLine;
+                }
+                else
+                {
+                    _description += "Đánh giá thất bại." + Environment.NewLine;
+                    _description += "Chỉ đánh giá OQA khi sản phẩm vừa được đánh giá OQC NG." + Environment.NewLine;
                 }
             }
             return result;

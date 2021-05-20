@@ -17,19 +17,20 @@
         </table>
         <div class="MenuBody">
             @*<div style="display: block;" id="page1">*@
-            <input type="button" id="btnConfirmProduct" class="Button" value="Xác nhận sản phẩm" onclick="ConfirmProduct()">
-            <input type="button" id="btnCheckProduct" class="Button" value="Kiểm tra sản phẩm" onclick="CheckProduct()">
-            <input type="button" id="btnApproveProduct" class="Button" value="Đánh giá sản phẩm" onclick="ApproveProduct()">
-            <input type="button" id="btnImportProduct" class="Button" value="Nhập kho sản phẩm" onclick="ImportProduct()">
-            <input type="button" id="btnCheckExportProduct" class="Button" value="Đánh giá OQC sản phẩm" onclick="CheckExportProduct()">
-            @*</div>*@
-            @*<div style="display: block;" id="page2">*@
-            @*</div>*@
-            @*<div class="switch" style="text-align:center">
+            <input type="button" id="btnConfirmProduct" class="Button" value="Xác nhận sản phẩm" onclick="ConfirmProduct()"><br>
+            <input type="button" id="btnCheckProduct" class="Button" value="Kiểm tra sản phẩm" onclick="CheckProduct()"><br>
+    <input type="button" id="btnApproveProduct" class="Button" value="Đánh giá sản phẩm" onclick="ApproveProduct()"><br>
+    <input type="button" id="btnImportProduct" class="Button" value="Nhập kho sản phẩm" onclick="ImportProduct()"><br>
+    <input type="button" id="btnCheckExportProduct" class="Button" value="Đánh giá OQC sản phẩm" onclick="CheckExportProduct()"><br>
+    <input type="button" id="btnApproveExportProduct" class="Button" value="Đánh giá OQA sản phẩm" onclick="ApproveExportProduct()"><br>
+    @*</div>*@
+    @*<div style="display: block;" id="page2">*@
+    @*</div>*@
+    @*<div class="switch" style="text-align:center">
             <input type="button" id="btnPage1" value="1" onclick="ChangePage(1)" disabled="">&nbsp;
             <input type="button" id="btnPage2" value="2" onclick="ChangePage(2)">
         </div>*@
-        </div>
+</div>
     </div>
 </form>
 <script type="text/javascript">
@@ -65,12 +66,15 @@
     };
     var ApproveProduct = function () {
         window.location = '@Url.Action("ApproveProduct", "Production")';
-    }; 
+    };
     var ImportProduct = function () {
         window.location = '@Url.Action("ImportProduct", "Production")';
     };
     var CheckExportProduct = function () {
         window.location = '@Url.Action("CheckExportProduct", "Production")';
+    };
+    var ApproveExportProduct = function () {
+        window.location = '@Url.Action("ApproveExportProduct", "Production")';
     };
 </script>
 
