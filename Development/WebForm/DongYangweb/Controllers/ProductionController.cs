@@ -223,12 +223,12 @@ namespace DongYangweb.Controllers
                 }
                 else if (production.Rows.Count == 0)
                 {
-                    _description += "Kiểm tra thất bại." + Environment.NewLine;
+                    _description += "Đánh giá OQC thất bại." + Environment.NewLine;
                     _description += "Sản phẩm này chưa được công nhân xác nhận." + Environment.NewLine;
                 }
                 else
                 {
-                    _description += "Kiểm tra thất bại." + Environment.NewLine;
+                    _description += "Đánh giá OQC thất bại." + Environment.NewLine;
                     _description += "Chỉ đánh giá OQC sản phẩm khi sản phẩm vừa được công nhân nhập kho hoặc vừa đánh giá OQA OK." + Environment.NewLine;
                 }
             }
@@ -247,12 +247,12 @@ namespace DongYangweb.Controllers
                 }
                 else if (production.Rows.Count == 0)
                 {
-                    _description += "Kiểm tra thất bại." + Environment.NewLine;
+                    _description += "Đánh giá OQA thất bại." + Environment.NewLine;
                     _description += "Sản phẩm này chưa được công nhân xác nhận." + Environment.NewLine;
                 }
                 else
                 {
-                    _description += "Đánh giá thất bại." + Environment.NewLine;
+                    _description += "Đánh giá OQA thất bại." + Environment.NewLine;
                     _description += "Chỉ đánh giá OQA khi sản phẩm vừa được đánh giá OQC NG." + Environment.NewLine;
                 }
             }
